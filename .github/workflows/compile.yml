@@ -1,0 +1,31 @@
+name: Compile
+on:
+  workflow_dispatch:
+  push:
+  pull_request:
+jobs:
+  start-container-stack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: start container stack
+        run: docker-compose up -d
+
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v2
+      - name: install npm packages
+        run: npm install
+
+  deploy-solidity-contracts:
+    needs:
+      - setup
+      - start-container-stack
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Compile Solidity contracts
+        run: npm run compile
+      - name: Migrate Solidity contracts
+        run: npm run migrate
