@@ -7,7 +7,7 @@ services:
     volumes:
       - ganache_data:/ganache_data
     ports:
-      - "8545:8545"
+      - "7545:8545"
     restart: unless-stopped
 
   postgres:
