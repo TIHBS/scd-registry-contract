@@ -4,7 +4,15 @@ on:
   push:
   pull_request:
 jobs:
-  checkout:
+  check-docker-stack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v2
+      - name: Start container stack
+        run: docker-compose up -d
+
+  compile:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
