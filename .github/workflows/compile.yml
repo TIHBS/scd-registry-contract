@@ -20,7 +20,7 @@ jobs:
       - name: Install npm packages
         run: npm install
       - name: Start container stack
-        run: docker-compose up -d
+        run: docker-compose up -d ganache-cli
       - name: Compile Solidity contracts
         run: npm run compile
       - name: Migrate Solidity contracts
