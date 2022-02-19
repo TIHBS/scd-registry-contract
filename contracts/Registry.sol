@@ -21,20 +21,31 @@ contract Registry {
         BlockchainType blockChainType;
     }
 
-    uint256 idCounter;
-    mapping(uint256 => SCDMetadata) sCDMetadata;
+    string private message;
 
-    mapping(string => mapping(uint256 => bool)) public name;
-    mapping(string => mapping(uint256 => bool)) public author;
-    mapping(string => mapping(uint256 => bool)) public internalAddress;
-    mapping(string => mapping(uint256 => bool)) public publicFunction;
-    mapping(string => mapping(uint256 => bool)) public events;
-    mapping(string => mapping(uint256 => bool)) public url;
-    mapping(string => mapping(uint256 => bool)) public signature;
-    mapping(uint256 => mapping(uint256 => bool)) public version;
-    mapping(BlockchainType => mapping(uint256 => bool)) public blockChainType;
+    uint256 private idCounter;
+    mapping(uint256 => SCDMetadata) private sCDMetadata;
 
-    constructor() public {
+    mapping(string => mapping(uint256 => bool)) private name;
+    mapping(string => mapping(uint256 => bool)) private author;
+    mapping(string => mapping(uint256 => bool)) private internalAddress;
+    mapping(string => mapping(uint256 => bool)) private publicFunction;
+    mapping(string => mapping(uint256 => bool)) private events;
+    mapping(string => mapping(uint256 => bool)) private url;
+    mapping(string => mapping(uint256 => bool)) private signature;
+    mapping(uint256 => mapping(uint256 => bool)) private version;
+    mapping(BlockchainType => mapping(uint256 => bool)) private blockChainType;
+
+    constructor() {
         idCounter = 0;
+        message = "Hello World!";
+    }
+
+    function Get() public view returns (string memory) {
+        return message;
+    }
+
+    function Set(string memory newMessage) public {
+        message = newMessage;
     }
 }

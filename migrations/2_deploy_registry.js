@@ -1,5 +1,5 @@
 const Registry = artifacts.require("Registry");
 
-module.exports = function (deployer) {
+module.exports = (deployer) => {
   deployer.deploy(Registry);
 };
