@@ -29,5 +29,5 @@ jobs:
         run: npx hardhat --network hardhatContainer deploy
       - name: Compile application
         run: npx tsc
-      - name: Test run
+      - name: Run the useless application
         run: npm start
