@@ -24,6 +24,6 @@ jobs:
       - name: Install npm packages
         run: npm install
       - name: Start container stack
-        run: docker-compose up -d ganache-cli
+        run: docker-compose up -d hardhat-network
       - name: Migrate Solidity contracts
-        run: npm run migrate
+        run: npx hardhat --network hardhatContainer deploy

@@ -106,6 +106,7 @@ dist
 # Hardhat files
 cache
 artifacts
+deployments
 
 # Generated Typings
 typechain-types/

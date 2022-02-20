@@ -1,9 +1,10 @@
 import { task } from "hardhat/config";
-import "@nomiclabs/hardhat-waffle";
 import { HardhatUserConfig } from "hardhat/config";
 import "@typechain/hardhat";
 import "@nomiclabs/hardhat-ethers";
 import "@nomiclabs/hardhat-waffle";
+import "hardhat-deploy";
+import "hardhat-deploy-ethers";
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
@@ -17,7 +18,13 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 
 const config: HardhatUserConfig = {
   solidity: "0.7.3",
+  namedAccounts: {
+    deployer: 0,
+  },
   networks: {
+    hardhatContainer: {
+      url: "http://localhost:8545",
+    },
     hardhat: {
       gas: "auto",
       gasPrice: "auto",

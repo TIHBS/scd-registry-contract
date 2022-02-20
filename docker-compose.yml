@@ -6,4 +6,4 @@ services:
       context: .
       dockerfile: docker/hardhat-network/Dockerfile
     ports:
-      - 8545:8545
+      - "8545:8545"
