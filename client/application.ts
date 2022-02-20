@@ -1,7 +1,8 @@
 import truffle from "../truffle-config.js";
 import Registry from "../build/contracts/Registry.json";
-import Web3 from "web3";
 import HDWalletProvider from "@truffle/hdwallet-provider";
+import { AbiItem } from "web3-utils";
+import Web3 from "web3";
 
 export default class App {
   private mnemonicPhrase: string;
@@ -20,8 +21,7 @@ export default class App {
       url: host + ":" + port.toString(),
     });
 
-    this.web3 = new Web3();
-    this.web3.setProvider(this.provider);
+    this.web3 = new Web3(this.provider);
   }
 
   // async send() {
@@ -58,6 +58,7 @@ export default class App {
     const result = await instance.methods.Get().call();
 
     console.log(result);
+    this.provider.engine.stop();
     // HelloWorld.setProvider(this.provider);
 
     // const instance = await HelloWorld.deployed();
