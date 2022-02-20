@@ -1,0 +1,9 @@
+version: "3"
+services:
+  hardhat-network:
+    container_name: hardhat-network
+    build:
+      context: .
+      dockerfile: docker/hardhat-network/Dockerfile
+    ports:
+      - 8545:8545

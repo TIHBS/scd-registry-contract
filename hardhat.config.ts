@@ -17,6 +17,29 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 
 const config: HardhatUserConfig = {
   solidity: "0.7.3",
+  networks: {
+    hardhat: {
+      gas: "auto",
+      gasPrice: "auto",
+      accounts: [
+        {
+          privateKey:
+            "0x534af078a10af8335f6fbab8bfbd9bb13ed30fbb31f73f31c2070cfc5a4ad666",
+          balance: "100000000000000000000",
+        },
+        {
+          privateKey:
+            "0x534af078a10af8335f6fbab8bfbd9bb13ed30fbb31f73f31c2070cfc5a4ad666",
+          balance: "100000000000000000000",
+        },
+        {
+          privateKey:
+            "0x534af078a10af8335f6fbab8bfbd9bb13ed30fbb31f73f31c2070cfc5a4ad666",
+          balance: "100000000000000000000",
+        },
+      ],
+    },
+  },
 };
 
 export default config;
