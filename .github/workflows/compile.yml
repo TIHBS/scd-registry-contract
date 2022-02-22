@@ -31,3 +31,5 @@ jobs:
         run: npx tsc
       - name: Run the useless application
         run: npm start
+      - name: Run tests
+        run: npx hardhat test

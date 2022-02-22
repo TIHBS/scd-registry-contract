@@ -1,13 +1,12 @@
 import { task } from "hardhat/config";
 import { HardhatUserConfig } from "hardhat/config";
 import "@typechain/hardhat";
+import "@typechain/ethers-v5";
 import "@nomiclabs/hardhat-ethers";
 import "@nomiclabs/hardhat-waffle";
 import "hardhat-deploy";
 import "hardhat-deploy-ethers";
 
-// This is a sample Hardhat task. To learn how to create your own go to
-// https://hardhat.org/guides/create-task.html
 task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
   const accounts = await hre.ethers.getSigners();
 
@@ -17,7 +16,9 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 });
 
 const config: HardhatUserConfig = {
-  solidity: "0.7.3",
+  solidity: {
+    compilers: [{ version: "0.7.3", settings: {} }],
+  },
   namedAccounts: {
     deployer: 0,
   },

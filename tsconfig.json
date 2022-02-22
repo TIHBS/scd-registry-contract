@@ -11,5 +11,5 @@
     "esModuleInterop": true,
     "resolveJsonModule": true
   },
-  "include": ["./test", "./client", "./deployments"]
+  "include": ["./client"]
 }
