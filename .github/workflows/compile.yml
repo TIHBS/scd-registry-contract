@@ -26,7 +26,7 @@ jobs:
       - name: Start container stack
         run: docker-compose up -d hardhat-network
       - name: Deploy Solidity contracts
-        run: npx hardhat --network hardhatContainer deploy
+        run: npx hardhat --network hardhat-network deploy
       - name: Compile application
         run: npx tsc
       - name: Run the useless application
