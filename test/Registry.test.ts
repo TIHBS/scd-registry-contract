@@ -17,7 +17,7 @@ describe("Token contract", () => {
     registry = await registryFactory.deploy();
   });
 
-  it("Deployment should assign the total supply of tokens to the owner", async () => {
+  it("Should set and get a string", async () => {
     const result1 = await registry.Get();
     expect(result1).equal("Hello World!");
 
