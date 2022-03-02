@@ -1,4 +1,4 @@
-import RegistryArtifact from "../deployments/local/Registry.json";
+import RegistryArtifact from "../deployments/hardhat-network/Registry.json";
 import { JsonRpcProvider } from "@ethersproject/providers";
 import { Wallet } from "ethers";
 import { Registry__factory } from "../typechain-types/factories/Registry__factory";
