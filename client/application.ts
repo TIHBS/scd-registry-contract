@@ -1,34 +1,15 @@
-import RegistryArtifact from "../deployments/hardhat-network/Registry.json";
-import { JsonRpcProvider } from "@ethersproject/providers";
-import { Wallet } from "ethers";
+import { getOrCreateContract } from "./util";
+import RegistryArtifact from "../deployments/localhost/Registry.json";
 import { Registry__factory } from "../typechain-types/factories/Registry__factory";
 import { Registry } from "../typechain-types/Registry";
-import TestWallets from "../test/TestWallets";
+import BaseApp from "./base-app";
 
-export default class App {
-  private wallet: Wallet;
-
-  constructor() {
-    let privateKey = TestWallets[0].privateKey;
-    const url = "http://localhost:8545";
-
-    const provider = new JsonRpcProvider(url);
-    this.wallet = new Wallet(privateKey, provider);
-  }
-
+export default class App extends BaseApp {
   async run() {
-    const registryFactory = new Registry__factory(this.wallet);
-
-    const contractCode = await this.wallet.provider.getCode(
-      RegistryArtifact.address
-    );
-
-    let registryContract: Registry;
-    if (contractCode == "0x") {
-      registryContract = await registryFactory.deploy();
-    } else {
-      registryContract = await registryFactory.attach(RegistryArtifact.address);
-    }
+    let registryContract = await getOrCreateContract<
+      Registry,
+      Registry__factory
+    >(Registry__factory, this.wallet, RegistryArtifact.address);
 
     const result1 = await registryContract.Get();
     console.log(result1);
