@@ -7,7 +7,7 @@ export default abstract class BaseApp {
 
   constructor() {
     let privateKey = TestWallets[0].privateKey;
-    const url = "http://localhost:8545";
+    const url = "http://127.0.0.1:8545";
 
     const provider = new JsonRpcProvider(url);
     this.wallet = new Wallet(privateKey, provider);
