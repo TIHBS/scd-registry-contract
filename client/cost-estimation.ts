@@ -5,7 +5,6 @@ import { fetchETHExchangeRate, getOrCreateContract } from "./util";
 import { formatEther, parseUnits } from "ethers/lib/utils";
 import StorageArtifact from "../deployments/localhost/Storage.json";
 import BaseApp from "./base-app";
-import { BigNumber } from "ethers";
 
 export default class CostEstimation extends BaseApp {
   static fileName: string = "1kB.txt";
