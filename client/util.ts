@@ -1,4 +1,5 @@
 import { BaseContract, ContractFactory, Wallet } from "ethers";
+import fetch from "node-fetch";
 
 export type Constructor<Type> = { new (...args: any | any[]): Type };
 
@@ -20,4 +21,12 @@ export async function getOrCreateContract<
     storageContract = (await factory.attach(address)) as Contract;
   }
   return storageContract;
+}
+
+export async function fetchETHExchangeRate(currency: string): Promise<number> {
+  const response = await fetch(
+    `https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=${currency}`
+  );
+  const responseJson = await response.json();
+  return responseJson[currency];
 }
