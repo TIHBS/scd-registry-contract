@@ -24,7 +24,7 @@ jobs:
       - name: Install npm packages
         run: npm install
       - name: Start ETH simulator
-        run: npx hardhat node
+        run: npx hardhat node & disown
       - name: Deploy Solidity contracts
         run: npx hardhat --network hardhat deploy
       - name: Compile application
