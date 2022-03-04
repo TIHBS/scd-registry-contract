@@ -23,10 +23,10 @@ jobs:
           fetch-depth: 0
       - name: Install npm packages
         run: npm install
-      - name: Start container stack
-        run: docker-compose up -d hardhat-network
+      - name: Start ETH simulator
+        run: npx hardhat node
       - name: Deploy Solidity contracts
-        run: npx hardhat --network hardhat-network deploy
+        run: npx hardhat --network hardhat deploy
       - name: Compile application
         run: npx tsc
       - name: Run the useless application
