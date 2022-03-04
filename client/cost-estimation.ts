@@ -1,7 +1,7 @@
 import { Storage__factory } from "../typechain-types/factories/Storage__factory";
 import { Storage } from "../typechain-types/Storage";
 import { readFileSync } from "fs";
-import { fetchETHExchangeRate, getOrCreateContract } from "./util";
+import { fetchETHExchangeRate, getOrCreateContract, round } from "./util";
 import { formatEther, parseUnits } from "ethers/lib/utils";
 import StorageArtifact from "../deployments/localhost/Storage.json";
 import BaseApp from "./base-app";
@@ -26,22 +26,18 @@ export default class CostEstimation extends BaseApp {
     const result = gasUsed * gasPrice;
     const resultInEther = formatEther(result);
 
-    const exchangeRate = await fetchETHExchangeRate("EUR");
-    const inFiat = Number.parseFloat(resultInEther) * exchangeRate;
-
     console.log(
       "Cost of storing %s in a solidity mapping.",
       CostEstimation.fileName
     );
-    console.log("Gas used: %s", gasUsed.toString());
-    console.log("Gas price: %s Wei", gasPrice.toString());
-    console.log("Exchange rate %d€", exchangeRate);
-    console.log(
-      "%s * %s = %s ETH",
-      gasUsed.toString(),
-      gasPrice.toString(),
-      resultInEther
-    );
-    console.log("%s ETH * %d€ = %s€", resultInEther, exchangeRate, inFiat);
+    console.log(`Gas used: ${gasUsed}`);
+    console.log(`Gas price: ${gasPrice} Wei`);
+    console.log(`${gasUsed} * ${gasPrice} = ${resultInEther} ETH`);
+
+    const exchangeRate = await fetchETHExchangeRate("EUR");
+    const inFiat = Number.parseFloat(resultInEther) * exchangeRate;
+
+    console.log(`Exchange rate ${exchangeRate}€`);
+    console.log(`${resultInEther} ETH * ${exchangeRate}€ ≈ ${round(inFiat)}€`);
   }
 }
