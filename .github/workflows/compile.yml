@@ -32,4 +32,4 @@ jobs:
       - name: Run the useless application
         run: npm start
       - name: Run tests
-        run: npx hardhat test
+        run: npm test
