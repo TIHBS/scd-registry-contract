@@ -23,12 +23,12 @@ jobs:
           fetch-depth: 0
       - name: Install npm packages
         run: npm install
-      - name: Compile application
-        run: npm run build
       - name: Start ETH simulator
         run: npx hardhat node & disown
       - name: Deploy Solidity contracts
         run: npx hardhat --network hardhat deploy
+      - name: Compile application
+        run: npm run build
       - name: Run the useless application
         run: npm start
       - name: Run tests
