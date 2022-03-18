@@ -1,6 +1,6 @@
 import { getOrCreateContract } from "./util";
-import { Registry__factory } from "../typechain-types/factories/Registry__factory";
-import { Registry } from "../typechain-types/Registry";
+import { Registry__factory } from "../typechain/factories/Registry__factory";
+import { Registry } from "../typechain/Registry";
 import BaseApp from "./base-app";
 import RegistryArtifact from "../deployments/localhost/Registry.json";
 
@@ -9,7 +9,7 @@ export default class App extends BaseApp {
     let registryContract = (await getOrCreateContract(
       Registry__factory,
       this.wallet,
-      RegistryArtifact.address
+      RegistryArtifact.address,
     )) as Registry;
 
     const result1 = await registryContract.Get();

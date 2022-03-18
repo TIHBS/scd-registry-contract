@@ -1,5 +1,5 @@
-import { Registry__factory } from "../typechain-types/factories/Registry__factory";
-import { Registry } from "../typechain-types/Registry";
+import { Registry__factory } from "../typechain/factories/Registry__factory";
+import { Registry } from "../typechain/Registry";
 import { solidity } from "ethereum-waffle";
 import { ethers } from "hardhat";
 import chai from "chai";
