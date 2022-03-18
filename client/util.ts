@@ -6,7 +6,7 @@ export type Constructor<Type> = { new (...args: any | any[]): Type };
 export async function getOrCreateContract<Factory extends ContractFactory>(
   factoryConstructor: Constructor<Factory>,
   wallet: Wallet,
-  address: string
+  address: string,
 ): Promise<Contract> {
   const factory = new factoryConstructor(wallet);
   const contractCode = await wallet.provider.getCode(address);
@@ -21,9 +21,7 @@ export async function getOrCreateContract<Factory extends ContractFactory>(
 }
 
 export async function fetchETHExchangeRate(currency: string): Promise<number> {
-  const response = await fetch(
-    `https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=${currency}`
-  );
+  const response = await fetch(`https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=${currency}`);
   const responseJson = await response.json();
   return responseJson[currency];
 }
