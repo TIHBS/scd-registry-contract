@@ -6,6 +6,7 @@ import chai from "chai";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { BigNumber } from "ethers";
 import deepEqualInAnyOrder from "deep-equal-in-any-order";
+import { outputToStruct } from "../client/util";
 
 chai.use(solidity);
 chai.use(deepEqualInAnyOrder);
