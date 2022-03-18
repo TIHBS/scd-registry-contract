@@ -24,7 +24,7 @@ const config: HardhatUserConfig = {
     deployer: 0,
   },
   networks: {
-    "hardhat-network": {
+    "hardhat-container": {
       url: "http://localhost:8545",
     },
     hardhat: {
