@@ -4,7 +4,6 @@ import { solidity } from "ethereum-waffle";
 import { ethers } from "hardhat";
 import chai from "chai";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
-import { outputToStruct } from "../client/util";
 import { BigNumber } from "ethers";
 import deepEqualInAnyOrder from "deep-equal-in-any-order";
 
