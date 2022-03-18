@@ -6,6 +6,8 @@ import "@nomiclabs/hardhat-ethers";
 import "@nomiclabs/hardhat-waffle";
 import "hardhat-deploy";
 import "hardhat-deploy-ethers";
+import "hardhat-gas-reporter";
+import "dotenv/config";
 import testWallets from "./test/TestWallets";
 
 task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
@@ -32,6 +34,14 @@ const config: HardhatUserConfig = {
       gasPrice: "auto",
       accounts: testWallets,
     },
+  },
+  gasReporter: {
+    currency: "EUR",
+    coinmarketcap: process.env.COINMARKETCAP_API_KEY,
+  },
+  typechain: {
+    outDir: "typechain",
+    target: "ethers-v5",
   },
 };
 
