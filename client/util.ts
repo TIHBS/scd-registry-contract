@@ -1,12 +1,9 @@
-import { BaseContract, ContractFactory, Wallet } from "ethers";
+import { Contract, ContractFactory, Wallet } from "ethers";
 import fetch from "node-fetch";
 
 export type Constructor<Type> = { new (...args: any | any[]): Type };
 
-export async function getOrCreateContract<
-  Contract extends BaseContract,
-  Factory extends ContractFactory
->(
+export async function getOrCreateContract<Factory extends ContractFactory>(
   factoryConstructor: Constructor<Factory>,
   wallet: Wallet,
   address: string
