@@ -6,6 +6,7 @@ RUN npm install
 COPY hardhat.config.ts tsconfig.json ./
 COPY test/TestWallets.ts ./test/
 COPY contracts contracts
+COPY tasks tasks
 RUN npx hardhat compile
 EXPOSE 8545
 ENTRYPOINT npx hardhat node
