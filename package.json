@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "start": "node dist/client/index.js",
-    "cost-estimation": "node dist/client/run-cost-estimation.js",
     "test": "npx hardhat test"
   },
   "repository": {
