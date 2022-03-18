@@ -1,3 +1,7 @@
 {
-  "recommendations": ["esbenp.prettier-vscode", "JuanBlanco.solidity"]
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "juanblanco.solidity",
+    "NomicFoundation.hardhat-solidity"
+  ]
 }
