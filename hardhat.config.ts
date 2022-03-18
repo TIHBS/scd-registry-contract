@@ -1,4 +1,3 @@
-import { task } from "hardhat/config";
 import { HardhatUserConfig } from "hardhat/config";
 import "@typechain/hardhat";
 import "@typechain/ethers-v5";
@@ -8,15 +7,8 @@ import "hardhat-deploy";
 import "hardhat-deploy-ethers";
 import "hardhat-gas-reporter";
 import "dotenv/config";
+import "./tasks";
 import testWallets from "./test/TestWallets";
-
-task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
-  const accounts = await hre.ethers.getSigners();
-
-  for (const account of accounts) {
-    console.log(account.address);
-  }
-});
 
 const config: HardhatUserConfig = {
   solidity: {
