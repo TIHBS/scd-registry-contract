@@ -12,13 +12,13 @@ export default class App extends BaseApp {
       RegistryArtifact.address,
     )) as Registry;
 
-    const result1 = await registryContract.Get();
+    const result1 = await registryContract.get();
     console.log(result1);
 
     const message = "test";
-    await registryContract.Set(message);
+    await registryContract.set(message);
 
-    const result2 = await registryContract.Get();
+    const result2 = await registryContract.get();
     console.log(result2);
   }
 }
