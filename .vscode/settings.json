@@ -1,3 +1,19 @@
 {
-  "solidity.compileUsingRemoteVersion": "v0.8.9+commit.e5eed63a"
+  "solidity.compileUsingRemoteVersion": "v0.8.9+commit.e5eed63a",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[solidity]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "hardhat.telemetry": false
 }
