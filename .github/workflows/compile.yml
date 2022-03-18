@@ -33,3 +33,5 @@ jobs:
         run: npm start
       - name: Run tests
         run: npm test
+        env:
+          COINMARKETCAP_API_KEY: ${{ secrets.COINMARKETCAP_API_KEY }}
