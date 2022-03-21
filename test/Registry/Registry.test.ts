@@ -6,7 +6,7 @@ import expect from "test/expect";
 
 describe("Registry contract", () => {
   let registry: Registry;
-  let scd: Registry.SCDMetadataStruct = {
+  const scd: Registry.SCDMetadataStruct = {
     name: "Contract Name 1",
     author: "TestAuthor1",
     version: "v2.3",
