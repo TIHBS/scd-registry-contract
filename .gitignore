@@ -109,4 +109,4 @@ artifacts
 deployments
 
 # Generated Typings
-typechain/
+src/types/

@@ -6,9 +6,10 @@ import "@nomiclabs/hardhat-waffle";
 import "hardhat-deploy";
 import "hardhat-deploy-ethers";
 import "hardhat-gas-reporter";
+import "tsconfig-paths/register";
 import "dotenv/config";
 import "./tasks";
-import testWallets from "./test/TestWallets";
+import testWallets from "./src/util/wallets";
 
 const config: HardhatUserConfig = {
   solidity: {
@@ -32,7 +33,7 @@ const config: HardhatUserConfig = {
     coinmarketcap: process.env.COINMARKETCAP_API_KEY,
   },
   typechain: {
-    outDir: "typechain",
+    outDir: "src/types",
     target: "ethers-v5",
   },
 };

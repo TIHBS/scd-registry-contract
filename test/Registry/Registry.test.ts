@@ -1,36 +1,26 @@
-import { Registry__factory } from "../typechain/factories/Registry__factory";
-import { Registry } from "../typechain/Registry";
-import { solidity } from "ethereum-waffle";
 import { ethers } from "hardhat";
-import chai from "chai";
-import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { BigNumber } from "ethers";
-import deepEqualInAnyOrder from "deep-equal-in-any-order";
-import { outputToStruct } from "../client/util";
-
-chai.use(solidity);
-chai.use(deepEqualInAnyOrder);
-const { expect } = chai;
+import { outputToStruct } from "src/util/contract";
+import { Registry__factory } from "../../src/types/factories/Registry__factory";
+import { Registry } from "../../src/types/Registry";
+import expect from "test/expect";
 
 describe("Registry contract", () => {
   let registry: Registry;
-  let signer: SignerWithAddress;
+
   before(async () => {
-    signer = (await ethers.getSigners())[0];
-    const registryFactory = new Registry__factory(signer);
-    registry = await registryFactory.deploy();
+    registry = await new Registry__factory((await ethers.getSigners())[0]).deploy();
   });
 
   it("Should set and get a string", async () => {
     const result1 = await registry.get();
-    expect(result1).equal("Hello World!");
+    expect(result1).to.equal("Hello World!");
 
     const toSet = "World Hello?";
-    const transaction = await registry.set(toSet);
-    expect(transaction.from).equal(signer.address);
+    await registry.set(toSet);
 
     const result2 = await registry.get();
-    expect(result2).equal(toSet);
+    expect(result2).to.equal(toSet);
   });
 
   it("Should store and retrieve the SCDMetadata", async () => {
@@ -48,7 +38,7 @@ describe("Registry contract", () => {
     };
 
     await registry.store(toStore);
-    const result = outputToStruct((await registry.retrieveByName(contractName))[0]);
+    const result = (await registry.retrieveByName(contractName)).map(output => outputToStruct(output))[0];
     expect(result).to.deep.equal(toStore);
   });
 });

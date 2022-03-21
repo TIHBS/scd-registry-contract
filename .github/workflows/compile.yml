@@ -23,6 +23,8 @@ jobs:
           fetch-depth: 0
       - name: Install npm packages
         run: npm install
+      - name: "Static analysis"
+        run: npm run lint
       - name: Start ETH simulator
         run: npx hardhat node & disown
       - name: Deploy Solidity contracts

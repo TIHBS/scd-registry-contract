@@ -4,7 +4,7 @@ WORKDIR /usr/src/hardhat-container
 COPY package*.json ./
 RUN npm install
 COPY hardhat.config.ts tsconfig.json ./
-COPY test/TestWallets.ts ./test/
+COPY src/util/wallets.ts ./src/util/
 COPY contracts contracts
 COPY tasks tasks
 RUN npx hardhat compile
