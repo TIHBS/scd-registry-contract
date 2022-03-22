@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "clean": "shx rm -rf deployments cache artifacts src/types",
+    "clean": "hardhat clean && shx rm -rf deployments cache src/types",
     "test": "hardhat test",
     "compile": "hardhat compile",
     "typechain": "hardhat typechain",
