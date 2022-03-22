@@ -1,9 +1,9 @@
-import { StoreMultipleRetrieveOne } from "./Registry.store-multiple-retrieve-one.test";
-import { StoreOneRetrieveOne } from "./Registry.store-one-retrieve-one.test";
-import { StoreMultipleRetrieveMultiple } from "./Registry.store-multiple-retrieve-multiple.test";
+import { storeMultipleRetrieveMultiple } from "./Registry.store-multiple-retrieve-multiple.test";
+import { storeMultipleRetrieveOne } from "./Registry.store-multiple-retrieve-one.test";
+import { storeOneRetrieveOne } from "./Registry.store-one-retrieve-one.test";
 
 describe("Registry contract", () => {
-  StoreOneRetrieveOne.suite();
-  StoreMultipleRetrieveOne.suite();
-  StoreMultipleRetrieveMultiple.suite();
+  storeOneRetrieveOne();
+  storeMultipleRetrieveOne();
+  storeMultipleRetrieveMultiple();
 });
