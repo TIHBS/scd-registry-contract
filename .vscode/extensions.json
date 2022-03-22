@@ -1,3 +1,9 @@
 {
-  "recommendations": ["esbenp.prettier-vscode", "juanblanco.solidity", "NomicFoundation.hardhat-solidity"]
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "juanblanco.solidity",
+    "nomicfoundation.hardhat-solidity",
+    "hbenl.vscode-mocha-test-adapter",
+    "hbenl.vscode-test-explorer"
+  ]
 }
