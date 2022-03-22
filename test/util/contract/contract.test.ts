@@ -1,5 +1,3 @@
-export namespace ContractUtil {
-  export function suite() {
-    describe("Convert outputs to structs", () => {});
-  }
+export function contractUtil() {
+  describe("Convert outputs to structs");
 }

@@ -1,5 +1,5 @@
-import { ContractUtil } from "./contract/contract.test";
+import { contractUtil } from "./contract/contract.test";
 
 describe("Util", () => {
-  ContractUtil.suite();
+  contractUtil();
 });
