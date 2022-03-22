@@ -1,7 +1,7 @@
 import { ethers } from "hardhat";
 import { outputToStruct } from "src/util/contract";
-import { Registry__factory } from "../../src/types/factories/Registry__factory";
-import { Registry } from "../../src/types/Registry";
+import { Registry__factory } from "../../../src/types/factories/Registry__factory";
+import { Registry } from "../../../src/types/Registry";
 import expect from "test/expect";
 
 export namespace StoreOneRetrieveOne {
