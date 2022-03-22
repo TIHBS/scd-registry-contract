@@ -17,6 +17,6 @@
   },
   "hardhat.telemetry": false,
   "mochaExplorer.files": ["test/**/*.ts"],
-  "mochaExplorer.timeout": 10000,
+  "mochaExplorer.timeout": 30000,
   "mochaExplorer.require": ["ts-node/register/transpile-only", "ethers", "hardhat"]
 }
