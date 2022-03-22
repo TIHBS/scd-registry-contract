@@ -35,7 +35,7 @@ jobs:
           COINMARKETCAP_API_KEY: ${{ secrets.COINMARKETCAP_API_KEY }}
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
-          with:
-            name: thesis
-            path: artifacts
-            retention-days: 5
+        with:
+          name: artifacts
+          path: artifacts
+          retention-days: 5
