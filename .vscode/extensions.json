@@ -3,6 +3,7 @@
     "esbenp.prettier-vscode",
     "nomicfoundation.hardhat-solidity",
     "hbenl.vscode-mocha-test-adapter",
-    "hbenl.vscode-test-explorer"
+    "hbenl.vscode-test-explorer",
+    "ryanluker.vscode-coverage-gutters"
   ]
 }

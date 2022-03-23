@@ -110,3 +110,6 @@ deployments
 
 # Generated Typings
 src/types/
+
+# Coverage
+coverage.json

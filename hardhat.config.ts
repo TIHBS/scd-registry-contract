@@ -6,6 +6,7 @@ import "@nomiclabs/hardhat-waffle";
 import "hardhat-deploy";
 import "hardhat-deploy-ethers";
 import "hardhat-gas-reporter";
+import "solidity-coverage";
 import "tsconfig-paths/register";
 import "dotenv/config";
 import "./tasks";
@@ -40,6 +41,7 @@ const config: HardhatUserConfig = {
   },
   gasReporter: {
     currency: "EUR",
+    enabled: process.env.GAS == "true" ? true : false,
     coinmarketcap: process.env.COINMARKETCAP_API_KEY,
   },
   typechain: {
