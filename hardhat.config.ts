@@ -13,7 +13,17 @@ import testWallets from "./src/util/wallets";
 
 const config: HardhatUserConfig = {
   solidity: {
-    compilers: [{ version: "0.8.9", settings: {} }],
+    compilers: [
+      {
+        version: "0.8.9",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 10000,
+          },
+        },
+      },
+    ],
   },
   namedAccounts: {
     deployer: 0,
