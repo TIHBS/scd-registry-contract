@@ -25,7 +25,7 @@ export function storeOneRetrieveOne() {
     });
 
     it("Should store and retrieve the SCDMetadata by id", async () => {
-      const id = 1;
+      const id = 0;
       const result = await registry.retrieveById(id);
 
       const metadata = outputToStruct(result.metadata);
