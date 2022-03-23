@@ -113,3 +113,6 @@ src/types/
 
 # Coverage
 coverage.json
+
+# strings util
+strings.sol
