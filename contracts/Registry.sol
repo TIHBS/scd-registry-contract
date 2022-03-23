@@ -25,6 +25,11 @@ contract Registry {
     BlockchainType blockChainType;
   }
 
+  struct SCDMetadataWithID {
+    uint256 id;
+    SCDMetadata metadata;
+  }
+
   uint256 private idCounter;
   mapping(uint256 => SCDMetadata) private metadataMap;
 
@@ -64,45 +69,49 @@ contract Registry {
     idCounter++;
   }
 
-  function retrieveByName(string memory _name) public view returns (SCDMetadata[] memory) {
+  function retrieveById(uint256 _id) public view returns (SCDMetadataWithID memory) {
+    return SCDMetadataWithID(_id, metadataMap[_id]);
+  }
+
+  function retrieveByName(string memory _name) public view returns (SCDMetadataWithID[] memory) {
     return retrieveFrom(nameMap, _name);
   }
 
-  function retrieveByAuthor(string memory _author) public view returns (SCDMetadata[] memory) {
+  function retrieveByAuthor(string memory _author) public view returns (SCDMetadataWithID[] memory) {
     return retrieveFrom(authorMap, _author);
   }
 
-  function retrieveByInternalAddress(string memory _internalAddress) public view returns (SCDMetadata[] memory) {
+  function retrieveByInternalAddress(string memory _internalAddress) public view returns (SCDMetadataWithID[] memory) {
     return retrieveFrom(internalAddressMap, _internalAddress);
   }
 
-  function retrieveByUrl(string memory _url) public view returns (SCDMetadata[] memory) {
+  function retrieveByUrl(string memory _url) public view returns (SCDMetadataWithID[] memory) {
     return retrieveFrom(urlMap, _url);
   }
 
-  function retrieveByFunction(string memory _function) public view returns (SCDMetadata[] memory) {
+  function retrieveByFunction(string memory _function) public view returns (SCDMetadataWithID[] memory) {
     return retrieveFrom(functionsMap, _function);
   }
 
-  function retrieveByEvent(string memory _event) public view returns (SCDMetadata[] memory) {
+  function retrieveByEvent(string memory _event) public view returns (SCDMetadataWithID[] memory) {
     return retrieveFrom(eventsMap, _event);
   }
 
-  function retrieveBySignature(string memory _signature) public view returns (SCDMetadata[] memory) {
+  function retrieveBySignature(string memory _signature) public view returns (SCDMetadataWithID[] memory) {
     return retrieveFrom(signatureMap, _signature);
   }
 
-  function retrieveByVersion(string memory _version) public view returns (SCDMetadata[] memory) {
+  function retrieveByVersion(string memory _version) public view returns (SCDMetadataWithID[] memory) {
     return retrieveFrom(versionMap, _version);
   }
 
-  function retrieveByType(BlockchainType _type) public view returns (SCDMetadata[] memory) {
+  function retrieveByType(BlockchainType _type) public view returns (SCDMetadataWithID[] memory) {
     EnumerableSet.UintSet storage indices = blockChainTypeMap[_type];
-    SCDMetadata[] memory metadata = new SCDMetadata[](indices.length());
+    SCDMetadataWithID[] memory metadata = new SCDMetadataWithID[](indices.length());
 
     for (uint256 i = 0; i < indices.length(); i++) {
       uint256 currentIndex = indices.at(i);
-      metadata[i] = metadataMap[currentIndex];
+      metadata[i] = SCDMetadataWithID(currentIndex, metadataMap[currentIndex]);
     }
 
     return metadata;
@@ -111,14 +120,14 @@ contract Registry {
   function retrieveFrom(mapping(string => EnumerableSet.UintSet) storage from, string memory key)
     internal
     view
-    returns (SCDMetadata[] memory)
+    returns (SCDMetadataWithID[] memory)
   {
     EnumerableSet.UintSet storage indices = from[key];
-    SCDMetadata[] memory metadata = new SCDMetadata[](indices.length());
+    SCDMetadataWithID[] memory metadata = new SCDMetadataWithID[](indices.length());
 
     for (uint256 i = 0; i < indices.length(); i++) {
       uint256 currentIndex = indices.at(i);
-      metadata[i] = metadataMap[currentIndex];
+      metadata[i] = SCDMetadataWithID(currentIndex, metadataMap[currentIndex]);
     }
 
     return metadata;

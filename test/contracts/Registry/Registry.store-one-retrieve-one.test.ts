@@ -25,55 +25,63 @@ export function storeOneRetrieveOne() {
     });
 
     it("Should store and retrieve the SCDMetadata by name", async () => {
-      const result = (await registry.retrieveByName(scd.name)).map(output => outputToStruct(output))[0];
+      const result = (await registry.retrieveByName(scd.name)).map(output => outputToStruct(output.metadata))[0];
       expect(result).to.deep.equal(scd);
     });
 
     it("Should store and retrieve the SCDMetadata by author", async () => {
-      const result = (await registry.retrieveByAuthor(scd.author)).map(output => outputToStruct(output))[0];
+      const result = (await registry.retrieveByAuthor(scd.author)).map(output => outputToStruct(output.metadata))[0];
       expect(result).to.deep.equal(scd);
     });
 
     it("Should store and retrieve the SCDMetadata by the version", async () => {
-      const result = (await registry.retrieveByVersion(scd.version)).map(output => outputToStruct(output))[0];
+      const result = (await registry.retrieveByVersion(scd.version)).map(output => outputToStruct(output.metadata))[0];
       expect(result).to.deep.equal(scd);
     });
 
     it("Should store and retrieve the SCDMetadata by the signature", async () => {
-      const result = (await registry.retrieveBySignature(scd.signature)).map(output => outputToStruct(output))[0];
+      const result = (await registry.retrieveBySignature(scd.signature)).map(output =>
+        outputToStruct(output.metadata),
+      )[0];
       expect(result).to.deep.equal(scd);
     });
 
     it("Should store and retrieve the SCDMetadata by the internal address", async () => {
       const result = (await registry.retrieveByInternalAddress(scd.internalAddress)).map(output =>
-        outputToStruct(output),
+        outputToStruct(output.metadata),
       )[0];
       expect(result).to.deep.equal(scd);
     });
 
     it("Should store and retrieve the SCDMetadata by the url", async () => {
-      const result = (await registry.retrieveByUrl(scd.url)).map(output => outputToStruct(output))[0];
+      const result = (await registry.retrieveByUrl(scd.url)).map(output => outputToStruct(output.metadata))[0];
       expect(result).to.deep.equal(scd);
     });
 
     it("Should store and retrieve the SCDMetadata by the blockchain type", async () => {
-      const result = (await registry.retrieveByType(scd.blockChainType)).map(output => outputToStruct(output))[0];
+      const result = (await registry.retrieveByType(scd.blockChainType)).map(output =>
+        outputToStruct(output.metadata),
+      )[0];
       expect(result).to.deep.equal(scd);
     });
 
     it("Should store and retrieve the SCDMetadata by function names", async () => {
-      const result1 = (await registry.retrieveByFunction(scd.functions[0])).map(output => outputToStruct(output))[0];
+      const result1 = (await registry.retrieveByFunction(scd.functions[0])).map(output =>
+        outputToStruct(output.metadata),
+      )[0];
       expect(result1).to.deep.equal(scd);
 
-      const result2 = (await registry.retrieveByFunction(scd.functions[1])).map(output => outputToStruct(output))[0];
+      const result2 = (await registry.retrieveByFunction(scd.functions[1])).map(output =>
+        outputToStruct(output.metadata),
+      )[0];
       expect(result2).to.deep.equal(scd);
     });
 
     it("Should store and retrieve the SCDMetadata by event names", async () => {
-      const result1 = (await registry.retrieveByEvent(scd.events[0])).map(output => outputToStruct(output))[0];
+      const result1 = (await registry.retrieveByEvent(scd.events[0])).map(output => outputToStruct(output.metadata))[0];
       expect(result1).to.deep.equal(scd);
 
-      const result2 = (await registry.retrieveByEvent(scd.events[1])).map(output => outputToStruct(output))[0];
+      const result2 = (await registry.retrieveByEvent(scd.events[1])).map(output => outputToStruct(output.metadata))[0];
       expect(result2).to.deep.equal(scd);
     });
   });

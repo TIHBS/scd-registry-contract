@@ -50,7 +50,7 @@ export function storeMultipleRetrieveMultiple() {
       ];
       await registry.storeMultiple(scds);
 
-      const result = (await registry.retrieveByName(name)).map(output => outputToStruct(output));
+      const result = (await registry.retrieveByName(name)).map(output => outputToStruct(output.metadata));
       expect(result).to.deep.equal([scds[0], scds[2]]);
     });
 
@@ -93,7 +93,7 @@ export function storeMultipleRetrieveMultiple() {
       ];
       await registry.storeMultiple(scds);
 
-      const result = (await registry.retrieveByAuthor(author)).map(output => outputToStruct(output));
+      const result = (await registry.retrieveByAuthor(author)).map(output => outputToStruct(output.metadata));
       expect(result).to.deep.equal([scds[0], scds[1]]);
     });
 
@@ -136,7 +136,7 @@ export function storeMultipleRetrieveMultiple() {
       ];
       await registry.storeMultiple(scds);
 
-      const result = (await registry.retrieveByVersion(version)).map(output => outputToStruct(output));
+      const result = (await registry.retrieveByVersion(version)).map(output => outputToStruct(output.metadata));
       expect(result).to.deep.equal([scds[1], scds[2]]);
     });
 
@@ -179,7 +179,7 @@ export function storeMultipleRetrieveMultiple() {
       ];
       await registry.storeMultiple(scds);
 
-      const result = (await registry.retrieveBySignature(signature)).map(output => outputToStruct(output));
+      const result = (await registry.retrieveBySignature(signature)).map(output => outputToStruct(output.metadata));
       expect(result).to.deep.equal([scds[0], scds[1]]);
     });
 
@@ -222,7 +222,9 @@ export function storeMultipleRetrieveMultiple() {
       ];
       await registry.storeMultiple(scds);
 
-      const result = (await registry.retrieveByInternalAddress(internalAddress)).map(output => outputToStruct(output));
+      const result = (await registry.retrieveByInternalAddress(internalAddress)).map(output =>
+        outputToStruct(output.metadata),
+      );
       expect(result).to.deep.equal([scds[0], scds[2]]);
     });
 
@@ -265,7 +267,7 @@ export function storeMultipleRetrieveMultiple() {
       ];
       await registry.storeMultiple(scds);
 
-      const result = (await registry.retrieveByUrl(url)).map(output => outputToStruct(output));
+      const result = (await registry.retrieveByUrl(url)).map(output => outputToStruct(output.metadata));
       expect(result).to.deep.equal([scds[0], scds[1]]);
     });
 
@@ -308,7 +310,7 @@ export function storeMultipleRetrieveMultiple() {
       ];
       await registry.storeMultiple(scds);
 
-      const result = (await registry.retrieveByType(blockChainType)).map(output => outputToStruct(output));
+      const result = (await registry.retrieveByType(blockChainType)).map(output => outputToStruct(output.metadata));
       expect(result).to.deep.equal([scds[1], scds[2]]);
     });
 
@@ -354,13 +356,13 @@ export function storeMultipleRetrieveMultiple() {
       ];
       await registry.storeMultiple(scds);
 
-      const result1 = (await registry.retrieveByFunction(function1)).map(output => outputToStruct(output));
+      const result1 = (await registry.retrieveByFunction(function1)).map(output => outputToStruct(output.metadata));
       expect(result1).to.deep.equal([scds[0], scds[1]]);
 
-      const result2 = (await registry.retrieveByFunction(function2)).map(output => outputToStruct(output));
+      const result2 = (await registry.retrieveByFunction(function2)).map(output => outputToStruct(output.metadata));
       expect(result2).to.deep.equal([scds[1], scds[2]]);
 
-      const result3 = (await registry.retrieveByFunction(function3)).map(output => outputToStruct(output));
+      const result3 = (await registry.retrieveByFunction(function3)).map(output => outputToStruct(output.metadata));
       expect(result3).to.deep.equal([scds[0], scds[2]]);
     });
 
@@ -406,13 +408,13 @@ export function storeMultipleRetrieveMultiple() {
       ];
       await registry.storeMultiple(scds);
 
-      const result1 = (await registry.retrieveByEvent(event1)).map(output => outputToStruct(output));
+      const result1 = (await registry.retrieveByEvent(event1)).map(output => outputToStruct(output.metadata));
       expect(result1).to.deep.equal([scds[0], scds[1]]);
 
-      const result2 = (await registry.retrieveByEvent(event2)).map(output => outputToStruct(output));
+      const result2 = (await registry.retrieveByEvent(event2)).map(output => outputToStruct(output.metadata));
       expect(result2).to.deep.equal([scds[1], scds[2]]);
 
-      const result3 = (await registry.retrieveByEvent(event3)).map(output => outputToStruct(output));
+      const result3 = (await registry.retrieveByEvent(event3)).map(output => outputToStruct(output.metadata));
       expect(result3).to.deep.equal([scds[0], scds[2]]);
     });
   });
