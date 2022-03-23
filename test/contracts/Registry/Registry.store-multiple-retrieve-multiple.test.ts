@@ -24,6 +24,7 @@ export function storeMultipleRetrieveMultiple() {
           blockChainType: 0,
           functions: ["function1", "function2", "function3"],
           events: ["event1", "event2", "event3", "event4"],
+          isValid: true,
         },
         {
           name: "Contract Name 2",
@@ -35,6 +36,7 @@ export function storeMultipleRetrieveMultiple() {
           blockChainType: 1,
           functions: ["function12", "function22", "function32"],
           events: ["event12", "event22", "event32", "event42"],
+          isValid: true,
         },
         {
           name: name,
@@ -46,6 +48,7 @@ export function storeMultipleRetrieveMultiple() {
           blockChainType: 2,
           functions: ["function13", "function23", "function33"],
           events: ["event13", "event23", "event33", "event43"],
+          isValid: true,
         },
       ];
       await registry.storeMultiple(scds);
@@ -66,6 +69,7 @@ export function storeMultipleRetrieveMultiple() {
           blockChainType: 0,
           functions: ["function1", "function2", "function3"],
           events: ["event1", "event2", "event3", "event4"],
+          isValid: true,
         },
         {
           name: "Contract Name 2",
@@ -77,6 +81,7 @@ export function storeMultipleRetrieveMultiple() {
           blockChainType: 1,
           functions: ["function12", "function22", "function32"],
           events: ["event12", "event22", "event32", "event42"],
+          isValid: true,
         },
         {
           name: "Contract Name 3",
@@ -88,6 +93,7 @@ export function storeMultipleRetrieveMultiple() {
           blockChainType: 2,
           functions: ["function13", "function23", "function33"],
           events: ["event13", "event23", "event33", "event43"],
+          isValid: true,
         },
       ];
       await registry.storeMultiple(scds);
@@ -136,6 +142,7 @@ export function storeMultipleRetrieveMultiple() {
           blockChainType: 0,
           functions: ["function1", "function2", "function3"],
           events: ["event1", "event2", "event3", "event4"],
+          isValid: true,
         },
         {
           name: "Contract Name 2",
@@ -147,6 +154,7 @@ export function storeMultipleRetrieveMultiple() {
           blockChainType: 1,
           functions: ["function12", "function22", "function32"],
           events: ["event12", "event22", "event32", "event42"],
+          isValid: true,
         },
         {
           name: "Contract Name 3",
@@ -158,6 +166,7 @@ export function storeMultipleRetrieveMultiple() {
           blockChainType: 2,
           functions: ["function13", "function23", "function33"],
           events: ["event13", "event23", "event33", "event43"],
+          isValid: true,
         },
       ];
       await registry.storeMultiple(scds);
@@ -179,6 +188,7 @@ export function storeMultipleRetrieveMultiple() {
           blockChainType: 0,
           functions: ["function1", "function2", "function3"],
           events: ["event1", "event2", "event3", "event4"],
+          isValid: true,
         },
         {
           name: "Contract Name 2",
@@ -190,6 +200,7 @@ export function storeMultipleRetrieveMultiple() {
           blockChainType: 1,
           functions: ["function12", "function22", "function32"],
           events: ["event12", "event22", "event32", "event42"],
+          isValid: true,
         },
         {
           name: "Contract Name 3",
@@ -201,6 +212,7 @@ export function storeMultipleRetrieveMultiple() {
           blockChainType: 2,
           functions: ["function13", "function23", "function33"],
           events: ["event13", "event23", "event33", "event43"],
+          isValid: true,
         },
       ];
       await registry.storeMultiple(scds);
@@ -222,6 +234,7 @@ export function storeMultipleRetrieveMultiple() {
           blockChainType: 0,
           functions: ["function1", "function2", "function3"],
           events: ["event1", "event2", "event3", "event4"],
+          isValid: true,
         },
         {
           name: "Contract Name 2",
@@ -233,6 +246,7 @@ export function storeMultipleRetrieveMultiple() {
           blockChainType: 1,
           functions: ["function12", "function22", "function32"],
           events: ["event12", "event22", "event32", "event42"],
+          isValid: true,
         },
         {
           name: "Contract Name 3",
@@ -244,6 +258,7 @@ export function storeMultipleRetrieveMultiple() {
           blockChainType: 2,
           functions: ["function13", "function23", "function33"],
           events: ["event13", "event23", "event33", "event43"],
+          isValid: true,
         },
       ];
       await registry.storeMultiple(scds);
@@ -265,6 +280,7 @@ export function storeMultipleRetrieveMultiple() {
           blockChainType: 0,
           functions: ["function1", "function2", "function3"],
           events: ["event1", "event2", "event3", "event4"],
+          isValid: true,
         },
         {
           name: "Contract Name 2",
@@ -276,6 +292,7 @@ export function storeMultipleRetrieveMultiple() {
           blockChainType: 1,
           functions: ["function12", "function22", "function32"],
           events: ["event12", "event22", "event32", "event42"],
+          isValid: true,
         },
         {
           name: "Contract Name 3",
@@ -287,6 +304,7 @@ export function storeMultipleRetrieveMultiple() {
           blockChainType: 2,
           functions: ["function13", "function23", "function33"],
           events: ["event13", "event23", "event33", "event43"],
+          isValid: true,
         },
       ];
       await registry.storeMultiple(scds);
@@ -310,6 +328,7 @@ export function storeMultipleRetrieveMultiple() {
           blockChainType: 0,
           functions: ["function1", "function2", "function3"],
           events: ["event1", "event2", "event3", "event4"],
+          isValid: true,
         },
         {
           name: "Contract Name 2",
@@ -321,6 +340,7 @@ export function storeMultipleRetrieveMultiple() {
           blockChainType: 1,
           functions: ["function12", "function22", "function32"],
           events: ["event12", "event22", "event32", "event42"],
+          isValid: true,
         },
         {
           name: "Contract Name 3",
@@ -332,6 +352,7 @@ export function storeMultipleRetrieveMultiple() {
           blockChainType: 2,
           functions: ["function13", "function23", "function33"],
           events: ["event13", "event23", "event33", "event43"],
+          isValid: true,
         },
       ];
       await registry.storeMultiple(scds);
@@ -353,6 +374,7 @@ export function storeMultipleRetrieveMultiple() {
           blockChainType: 0,
           functions: ["function1", "function2", "function3"],
           events: ["event1", "event2", "event3", "event4"],
+          isValid: true,
         },
         {
           name: "Contract Name 2",
@@ -364,6 +386,7 @@ export function storeMultipleRetrieveMultiple() {
           blockChainType: blockChainType,
           functions: ["function12", "function22", "function32"],
           events: ["event12", "event22", "event32", "event42"],
+          isValid: true,
         },
         {
           name: "Contract Name 3",
@@ -375,6 +398,7 @@ export function storeMultipleRetrieveMultiple() {
           blockChainType: blockChainType,
           functions: ["function13", "function23", "function33"],
           events: ["event13", "event23", "event33", "event43"],
+          isValid: true,
         },
       ];
       await registry.storeMultiple(scds);
@@ -399,6 +423,7 @@ export function storeMultipleRetrieveMultiple() {
           blockChainType: 0,
           functions: [function1, "function2", function3],
           events: ["event1", "event2", "event3", "event4"],
+          isValid: true,
         },
         {
           name: "Contract Name 2",
@@ -410,6 +435,7 @@ export function storeMultipleRetrieveMultiple() {
           blockChainType: 1,
           functions: [function1, function2, "function32"],
           events: ["event12", "event22", "event32", "event42"],
+          isValid: true,
         },
         {
           name: "Contract Name 3",
@@ -421,6 +447,7 @@ export function storeMultipleRetrieveMultiple() {
           blockChainType: 2,
           functions: ["function13", function2, function3],
           events: ["event13", "event23", "event33", "event43"],
+          isValid: true,
         },
       ];
       await registry.storeMultiple(scds);
@@ -451,6 +478,7 @@ export function storeMultipleRetrieveMultiple() {
           blockChainType: 0,
           functions: ["function1", "function2", "function3"],
           events: [event1, "event23463", event3, "event548658"],
+          isValid: true,
         },
         {
           name: "Contract Name 2",
@@ -462,6 +490,7 @@ export function storeMultipleRetrieveMultiple() {
           blockChainType: 1,
           functions: ["function12", "function22", "function32"],
           events: [event1, event2, "event567845832", "event44585682"],
+          isValid: true,
         },
         {
           name: "Contract Name 3",
@@ -473,6 +502,7 @@ export function storeMultipleRetrieveMultiple() {
           blockChainType: 2,
           functions: ["function13", "function23", "function33"],
           events: ["event2346436", event2, event3, "event12341234"],
+          isValid: true,
         },
       ];
       await registry.storeMultiple(scds);

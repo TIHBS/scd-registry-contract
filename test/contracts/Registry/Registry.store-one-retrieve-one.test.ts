@@ -17,6 +17,7 @@ export function storeOneRetrieveOne() {
       blockChainType: 0,
       functions: ["function1", "function2", "function3"],
       events: ["event1", "event2", "event3", "event4"],
+      isValid: true,
     };
 
     before(async () => {

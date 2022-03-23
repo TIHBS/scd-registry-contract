@@ -18,6 +18,7 @@ export function storeMultipleRetrieveOne() {
         blockChainType: 0,
         functions: ["function1", "function2", "function3"],
         events: ["event1", "event2", "event3", "event4"],
+        isValid: true,
       },
       {
         name: "Contract Name 2",
@@ -29,6 +30,7 @@ export function storeMultipleRetrieveOne() {
         blockChainType: 1,
         functions: ["function12", "function22", "function32"],
         events: ["event12", "event22", "event32", "event42"],
+        isValid: true,
       },
       {
         name: "Contract Name 3",
@@ -40,6 +42,7 @@ export function storeMultipleRetrieveOne() {
         blockChainType: 2,
         functions: ["function13", "function23", "function33"],
         events: ["event13", "event23", "event33", "event43"],
+        isValid: true,
       },
     ];
 

@@ -32,6 +32,7 @@ export function outputToStruct(output: Registry.SCDMetadataStructOutput): Regist
     blockChainType: output.blockChainType,
     functions: output.functions,
     events: output.events,
+    isValid: output.isValid,
   };
   return struct;
 }

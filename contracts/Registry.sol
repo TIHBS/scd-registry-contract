@@ -22,6 +22,7 @@ contract Registry {
     string version;
     string[] functions;
     string[] events;
+    bool isValid;
     BlockchainType blockChainType;
   }
 
