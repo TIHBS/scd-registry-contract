@@ -48,6 +48,16 @@ export function storeMultipleRetrieveOne() {
       await registry.storeMultiple(scds);
     });
 
+    it("Should store and retrieve the SCDMetadata by id", async () => {
+      const id = 1;
+      const result = await registry.retrieveById(id);
+
+      const metadata = outputToStruct(result.metadata);
+
+      expect(metadata).to.deep.equal(scds[id]);
+      expect(result.id).to.equal(id);
+    });
+
     it("Should store and retrieve the SCDMetadata by name", async () => {
       const result = (await registry.retrieveByName(scds[1].name)).map(output => outputToStruct(output.metadata))[0];
       expect(result).to.deep.equal(scds[1]);

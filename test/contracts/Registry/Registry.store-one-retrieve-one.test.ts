@@ -24,6 +24,16 @@ export function storeOneRetrieveOne() {
       await registry.store(scd);
     });
 
+    it("Should store and retrieve the SCDMetadata by id", async () => {
+      const id = 1;
+      const result = await registry.retrieveById(id);
+
+      const metadata = outputToStruct(result.metadata);
+
+      expect(metadata).to.deep.equal(scd);
+      expect(result.id).to.equal(id);
+    });
+
     it("Should store and retrieve the SCDMetadata by name", async () => {
       const result = (await registry.retrieveByName(scd.name)).map(output => outputToStruct(output.metadata))[0];
       expect(result).to.deep.equal(scd);

@@ -54,6 +54,75 @@ export function storeMultipleRetrieveMultiple() {
       expect(result).to.deep.equal([scds[0], scds[2]]);
     });
 
+    it("Should store and retrieve the SCDMetadata by id", async () => {
+      const scds: Registry.SCDMetadataStruct[] = [
+        {
+          name: "Contract Name 1",
+          author: "TestAuthor1",
+          version: "v2.11",
+          signature: "62cf2bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
+          internalAddress: "479f26b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
+          url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          blockChainType: 0,
+          functions: ["function1", "function2", "function3"],
+          events: ["event1", "event2", "event3", "event4"],
+        },
+        {
+          name: "Contract Name 2",
+          author: "TestAuthor2",
+          version: "v2.22",
+          signature: "22222bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
+          internalAddress: "444426b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
+          url: "ftp://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          blockChainType: 1,
+          functions: ["function12", "function22", "function32"],
+          events: ["event12", "event22", "event32", "event42"],
+        },
+        {
+          name: "Contract Name 3",
+          author: "TestAuthor3",
+          version: "v2.33",
+          signature: "33332bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
+          internalAddress: "333326b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
+          url: "https://odysee.com/@NCRfreemusic:c/RickAstley:e",
+          blockChainType: 2,
+          functions: ["function13", "function23", "function33"],
+          events: ["event13", "event23", "event33", "event43"],
+        },
+      ];
+      await registry.storeMultiple(scds);
+
+      {
+        const id = 0;
+        const result = await registry.retrieveById(id);
+
+        const metadata = outputToStruct(result.metadata);
+
+        expect(metadata).to.deep.equal(scds[id]);
+        expect(result.id).to.equal(id);
+      }
+
+      {
+        const id = 1;
+        const result = await registry.retrieveById(id);
+
+        const metadata = outputToStruct(result.metadata);
+
+        expect(metadata).to.deep.equal(scds[id]);
+        expect(result.id).to.equal(id);
+      }
+
+      {
+        const id = 2;
+        const result = await registry.retrieveById(id);
+
+        const metadata = outputToStruct(result.metadata);
+
+        expect(metadata).to.deep.equal(scds[id]);
+        expect(result.id).to.equal(id);
+      }
+    });
+
     it("Should store and retrieve the SCDMetadata by author", async () => {
       const author = "TestAuthor1";
       const scds: Registry.SCDMetadataStruct[] = [
