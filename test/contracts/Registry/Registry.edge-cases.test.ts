@@ -34,5 +34,18 @@ export function edgeCases() {
       expect(metadata.isValid).to.be.false;
     });
 
+    it("Should store and retrieve an empty array by name", async () => {
+      const name = "doesn't exist!";
+      const result = (await registry.retrieveByName(name)).map(output => outputToStruct(output.metadata));
+      expect(result).to.be.an("array");
+      expect(result).to.have.length(0);
+    });
+
+    it("Should store and retrieve an empty array by author", async () => {
+      const author = "doesn't exist!";
+      const result = (await registry.retrieveByName(author)).map(output => outputToStruct(output.metadata));
+      expect(result).to.be.an("array");
+      expect(result).to.have.length(0);
+    });
   });
 }
