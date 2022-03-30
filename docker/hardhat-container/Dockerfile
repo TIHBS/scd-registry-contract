@@ -2,11 +2,12 @@ FROM node:16
 
 WORKDIR /usr/src/hardhat-container
 COPY package*.json ./
-RUN npm install
 COPY hardhat.config.ts tsconfig.json ./
-COPY src/util/wallets.ts ./src/util/
+COPY src/util/ ./src/util/
 COPY contracts contracts
+COPY scripts scripts
 COPY tasks tasks
-RUN npx hardhat compile
+RUN npm install
+RUN npm run compile
 EXPOSE 8545
 ENTRYPOINT npx hardhat node

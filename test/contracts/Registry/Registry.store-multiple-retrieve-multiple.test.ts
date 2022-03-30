@@ -1,14 +1,14 @@
 import { ethers } from "hardhat";
 import { outputToStruct } from "src/util/contract";
-import { Registry__factory } from "../../../src/types/factories/Registry__factory";
-import { Registry } from "../../../src/types/Registry";
+import { Registry } from "src/types/Registry";
+import { deployRegistry } from "../../SetupRegistry";
 import expect from "test/expect";
 
 export function storeMultipleRetrieveMultiple() {
   describe("Store multiple and retrieve multiple", () => {
     let registry: Registry;
     beforeEach(async () => {
-      registry = await new Registry__factory((await ethers.getSigners())[0]).deploy();
+      [registry] = await deployRegistry((await ethers.getSigners())[0]);
     });
 
     it("Should store and retrieve the SCDMetadata by name", async () => {

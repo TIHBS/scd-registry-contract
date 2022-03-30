@@ -108,11 +108,12 @@ cache
 artifacts
 deployments
 
-# Generated Typings
+# Generated files
 src/types/
+contracts/generated/
 
 # Coverage
 coverage.json
 
-# strings util
-strings.sol
+# External
+contracts/external/

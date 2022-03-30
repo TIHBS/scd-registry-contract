@@ -1,4 +1,4 @@
 module.exports = {
   istanbulFolder: "./artifacts/coverage",
-  skipFiles: ["strings.sol"],
+  skipFiles: ["external/strings.sol"],
 };

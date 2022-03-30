@@ -3,3 +3,6 @@ cache/
 src/types/
 node_modules/
 deployments/
+coverage.json
+contracts/external/strings.sol
+contracts/generated/QueryRegex.sol

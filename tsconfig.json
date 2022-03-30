@@ -9,7 +9,6 @@
     "allowJs": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "paths": { "@types/*": ["src/types/*"] },
     "baseUrl": "."
   },
   "include": ["src/**/*", "test/**/*", "tasks/**/*", "deploy/**/*", "scripts/**/*"],
