@@ -1,7 +1,7 @@
 import { ethers } from "hardhat";
 import { outputToStruct } from "src/util/contract";
-import { Registry__factory } from "../../../src/types/factories/Registry__factory";
-import { Registry } from "../../../src/types/Registry";
+import { Registry } from "src/types/Registry";
+import { deployRegistry } from "../../SetupRegistry";
 import expect from "test/expect";
 
 export function edgeCases() {
@@ -21,7 +21,7 @@ export function edgeCases() {
     };
 
     before(async () => {
-      registry = await new Registry__factory((await ethers.getSigners())[0]).deploy();
+      [registry] = await deployRegistry((await ethers.getSigners())[0]);
       await registry.store(scd);
     });
 

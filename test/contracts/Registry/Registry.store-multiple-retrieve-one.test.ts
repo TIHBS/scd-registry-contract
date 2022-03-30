@@ -1,7 +1,7 @@
 import { ethers } from "hardhat";
 import { outputToStruct } from "src/util/contract";
-import { Registry__factory } from "../../../src/types/factories/Registry__factory";
-import { Registry } from "../../../src/types/Registry";
+import { Registry } from "src/types/Registry";
+import { deployRegistry } from "../../SetupRegistry";
 import expect from "test/expect";
 
 export function storeMultipleRetrieveOne() {
@@ -44,10 +44,22 @@ export function storeMultipleRetrieveOne() {
         events: ["event13", "event23", "event33", "event43"],
         isValid: true,
       },
+      {
+        name: "Contract Name 333",
+        author: "TestAuthor333",
+        version: "v2.333333",
+        signature: "33332bcc38e123d525sdfsd12bd72550cc61b0020ba726143d63fb58ec51371c5e746",
+        internalAddress: "333326b5f6edfsf0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
+        url: "https://odysee.com/@NCRfreemusic:c/RickAstley:eeeeee",
+        blockChainType: 3,
+        functions: ["function15e453", "function255ee3", "function366ep3ee"],
+        events: ["event990e03", "event34e63", "event883e3ee", "event46e73"],
+        isValid: true,
+      },
     ];
 
     before(async () => {
-      registry = await new Registry__factory((await ethers.getSigners())[0]).deploy();
+      [registry] = await deployRegistry((await ethers.getSigners())[0]);
       await registry.storeMultiple(scds);
     });
 
@@ -100,10 +112,25 @@ export function storeMultipleRetrieveOne() {
     });
 
     it("Should store and retrieve the SCDMetadata by the blockchain type", async () => {
-      const result = (await registry.retrieveByType(scds[1].blockChainType)).map(output =>
+      const result0 = (await registry.retrieveByType(scds[0].blockChainType)).map(output =>
         outputToStruct(output.metadata),
       )[0];
-      expect(result).to.deep.equal(scds[1]);
+      expect(result0).to.deep.equal(scds[0]);
+
+      const result1 = (await registry.retrieveByType(scds[1].blockChainType)).map(output =>
+        outputToStruct(output.metadata),
+      )[0];
+      expect(result1).to.deep.equal(scds[1]);
+
+      const result2 = (await registry.retrieveByType(scds[2].blockChainType)).map(output =>
+        outputToStruct(output.metadata),
+      )[0];
+      expect(result2).to.deep.equal(scds[2]);
+
+      const result3 = (await registry.retrieveByType(scds[3].blockChainType)).map(output =>
+        outputToStruct(output.metadata),
+      )[0];
+      expect(result3).to.deep.equal(scds[3]);
     });
 
     it("Should store and retrieve the SCDMetadata by function names", async () => {

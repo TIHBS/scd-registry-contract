@@ -1,19 +1,28 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.9;
+pragma solidity ^0.8.9;
 
-import "hardhat/console.sol";
-import "./strings.sol";
+import "./UtilLibrary.sol";
 
-library Util {
-  using strings for *;
+contract Util {
+  using UtilLibrary for *;
+
+  function copy(string memory str) public pure returns (string memory) {
+    return UtilLibrary.copy(str);
+  }
 
   function tokenize(string memory _str, string memory _delim) public pure returns (string[] memory) {
-    strings.slice memory strSlice = _str.toSlice();
-    strings.slice memory delimSlice = _delim.toSlice();
-    string[] memory tokens = new string[](strSlice.count(delimSlice) + 1);
-    for (uint256 i = 0; i < tokens.length; i++) {
-      tokens[i] = strSlice.split(delimSlice).toString();
-    }
-    return tokens;
+    return UtilLibrary.tokenize(_str, _delim);
+  }
+
+  function split(string memory _str, uint256 pos) public pure returns (string memory, string memory) {
+    return UtilLibrary.split(_str, pos);
+  }
+
+  function substring(
+    string memory _str,
+    uint256 begin,
+    uint256 end
+  ) public pure returns (string memory) {
+    return UtilLibrary.substring(_str, begin, end);
   }
 }

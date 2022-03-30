@@ -1,4 +1,5 @@
 # directories
 **/artifacts
 **/node_modules
-contracts/strings.sol
+contracts/external/strings.sol
+contracts/generated/QueryRegex.sol

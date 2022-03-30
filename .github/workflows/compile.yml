@@ -14,6 +14,20 @@ jobs:
       - name: Start container stack
         run: docker-compose up -d
 
+  check-deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Start Hardhat container
+        run: docker-compose up -d hardhat-container
+      - name: Install npm packages
+        run: npm install
+      - name: Deploy contracts
+        run: npm run deploy:container
+
   compile:
     runs-on: ubuntu-latest
     steps:
