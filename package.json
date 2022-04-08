@@ -14,7 +14,7 @@
     "lint:sol": "solhint --config .solhint.json --max-warnings 0 \"contracts/**/*.sol\"",
     "lint:ts": "eslint --config .eslintrc.yml --ignore-path .eslintignore --ext .js,.ts .",
     "deploy": "hardhat deploy --network hardhat",
-    "deploy:container": "hardhat deploy --network hardhat-container",
+    "deploy:container": "hardhat deploy --network ganache-cli",
     "test:coverage": "hardhat coverage",
     "test:gas": "cross-env GAS=true hardhat test",
     "postinstall": "ts-node scripts/post-install.ts"

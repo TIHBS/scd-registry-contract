@@ -1,9 +1,15 @@
 version: "3"
 services:
-  hardhat-container:
-    container_name: hardhat-container
+  ganache-cli:
+    container_name: ganache-cli
     build:
       context: .
-      dockerfile: docker/hardhat-container/Dockerfile
+      dockerfile: docker/ganache-cli/Dockerfile
+    volumes:
+      - ganache_data:/ganache_data
     ports:
       - 8545:8545
+    restart: unless-stopped
+    
+volumes:
+  ganache_data:
