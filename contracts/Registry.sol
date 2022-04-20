@@ -15,6 +15,8 @@ contract Registry {
   using UtilLibrary for *;
   using strings for *;
 
+  event ContractRegistered(uint256 id);
+
   enum BlockchainType {
     BITCOIN,
     ETHEREUM,
@@ -90,6 +92,7 @@ contract Registry {
 
     addMultipleKeysForOneValue(functionsMap, _metadata.functions, idCounter.current());
     addMultipleKeysForOneValue(eventsMap, _metadata.events, idCounter.current());
+    emit ContractRegistered(idCounter.current());
     idCounter.increment();
   }
 
