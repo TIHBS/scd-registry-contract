@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: Start container stack
@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: Install npm packages
@@ -53,3 +53,44 @@ jobs:
           name: artifacts
           path: artifacts
           retention-days: 5
+
+  push-contract-wrappers:
+    needs: compile
+    runs-on: ubuntu-latest
+    env:
+      API_TOKEN_GITHUB: ${{ secrets.CI }}
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - name: Set up registry contract repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          path: registry
+      - name: Install npm packages
+        working-directory: registry
+        run: npm install
+      - name: "Compile contracts"
+        working-directory: registry
+        run: npm run compile
+
+      - name: Set up common repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          repository: GarondEisenfaust/decentralised-scd-registry-common
+          path: common
+          token: ${{ secrets.CI }}
+      - name: "Copy wrappers"
+        working-directory: registry
+        run: |
+          mkdir -p ../common/src/wrappers
+          cp -R src/types/* ../common/src/wrappers/
+
+      - name: "Commit and push"
+        working-directory: common
+        run: |
+          git config user.name ${{ secrets.NAME }}
+          git config user.email ${{ secrets.EMAIL }}
+          git add -A
+          git commit -m"Update contract wrappers"
+          git push

@@ -5,6 +5,7 @@ import { join } from "path";
 async function executeScript(name: string): Promise<Buffer> {
   const path = join(ProjectRootDir.get(), `scripts`, name);
   console.log(`Executing: ${name}`);
+  console.log(path);
   const result = execSync(`npx ts-node ${path}`);
   console.log(result.toString());
   return result;
