@@ -30,6 +30,10 @@ const config: HardhatUserConfig = {
     "ganache-cli": {
       url: "http://localhost:8545",
     },
+    // Only used to automatically deploy the contracts when using docker-compose
+    "ganache-cli-docker-compose": {
+      url: "http://ganache-cli:8545",
+    },
     hardhat: {
       gas: "auto",
       gasPrice: "auto",

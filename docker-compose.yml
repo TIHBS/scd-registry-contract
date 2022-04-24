@@ -1,4 +1,4 @@
-version: "3"
+version: "3.7"
 services:
   ganache-cli:
     container_name: ganache-cli
@@ -10,6 +10,16 @@ services:
     ports:
       - 8545:8545
     restart: unless-stopped
-    
+
+  deploy-registry-contract:
+    container_name: deploy-registry-contract
+    build:
+      context: .
+      dockerfile: docker/deploy-registry-contract/Dockerfile
+    restart: "no"
+    depends_on:
+      - ganache-cli
+    environment:
+      - NETWORK=ganache-cli-docker-compose
 volumes:
   ganache_data:
