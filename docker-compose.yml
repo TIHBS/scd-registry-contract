@@ -10,6 +10,8 @@ services:
     ports:
       - 8545:8545
     restart: unless-stopped
+    networks:
+      - ethereum-network
 
   deploy-registry-contract:
     container_name: deploy-registry-contract
@@ -21,5 +23,11 @@ services:
       - ganache-cli
     environment:
       - NETWORK=ganache-cli-docker-compose
+    networks:
+      - ethereum-network
 volumes:
   ganache_data:
+
+networks:
+  ethereum-network:
+    driver: bridge
