@@ -1,4 +1,4 @@
-FROM trufflesuite/ganache-cli:latest
+FROM trufflesuite/ganache-cli:v6.12.2
 RUN /bin/sh -c "apk add --no-cache bash"
 ENTRYPOINT node /app/ganache-core.docker.cli.js \
     --db /ganache_data/chain-state.db \
