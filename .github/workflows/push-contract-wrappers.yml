@@ -1,0 +1,60 @@
+name: Push Contract Wrappers
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - contracts/**
+      - .github/workflows/push-contract-wrappers.yml
+jobs:
+  push-contract-wrappers:
+    runs-on: ubuntu-latest
+    env:
+      API_TOKEN_GITHUB: ${{ secrets.CI }}
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - name: Set up registry contract repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          path: registry
+      - name: Install npm packages
+        working-directory: registry
+        run: npm install
+      - name: "Static analysis"
+        working-directory: registry
+        run: npm run lint
+      - name: "Compile contracts"
+        working-directory: registry
+        run: npm run compile
+      - name: Run tests with coverage
+        working-directory: registry
+        run: npm run test:coverage
+      - name: Run tests to estimate gas costs
+        working-directory: registry
+        run: npm run test:gas
+        env:
+          COINMARKETCAP_API_KEY: ${{ secrets.COINMARKETCAP_API_KEY }}
+
+      - name: Set up common repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          repository: GarondEisenfaust/decentralised-scd-registry-common
+          path: common
+          token: ${{ secrets.CI }}
+      - name: "Copy wrappers"
+        working-directory: registry
+        run: |
+          mkdir -p ../common/src/wrappers
+          cp -R src/types/* ../common/src/wrappers/
+
+      - name: "Commit and push"
+        working-directory: common
+        run: |
+          git config user.name ${{ secrets.NAME }}
+          git config user.email ${{ secrets.EMAIL }}
+          git add -A
+          git commit -m"Update contract wrappers"
+          git push
