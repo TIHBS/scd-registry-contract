@@ -8,7 +8,8 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   const { deployer } = await getNamedAccounts();
   const regex = await get("Regex");
 
-  await deploy("Registry", { args: [regex.address], from: deployer, log: true });
+  const registry = await deploy("Registry", { args: [regex.address], from: deployer, log: true });
+  console.log(`DEPLOYED REGISTRY CONTRACT AT: ${registry}`)
 };
 export default func;
 func.tags = ["Registry"];
