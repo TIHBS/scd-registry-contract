@@ -1,0 +1,73 @@
+{
+  "scdl_version": "1.1",
+  "name": "dogeCoin",
+  "version": "1.0",
+  "latest_URL": null,
+  "description": "dogeCoin",
+  "author": "doge",
+  "created_on": "2022-02-28T14:58:16.1707425Z",
+  "updated_on": "2022-02-28T14:58:16.1707426Z",
+  "life_cycle": "ready",
+  "scl": null,
+  "blockchain_type": "ethereum",
+  "blockchain_version": "",
+  "internal_address": "479f26b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
+  "metadata": null,
+  "hash": "94883c8acf7d862e5b35ba6da468a5c964ccd0ffdf772c3a47c9bcc6209c3fda",
+  "is_stateful": true,
+  "functions": [
+    {
+      "name": "dogeAdd",
+      "description": "",
+      "scope": "public",
+      "has_side_effects": true,
+      "dispatcher": "",
+      "inputs": [
+        { "name": "a", "type": "uint", "is_indexed": false },
+        { "name": "b", "type": "uint", "is_indexed": false },
+        { "name": "c", "type": "uint", "is_indexed": false }
+      ],
+      "outputs": [],
+      "events": ["goesBrrrrr"]
+    },
+    {
+      "name": "dogeSub",
+      "description": "",
+      "Scope": "public",
+      "has_side_effects": true,
+      "dispatcher": "",
+      "inputs": [
+        { "name": "a", "type": "uint", "is_indexed": false },
+        { "name": "b", "type": "uint", "is_indexed": false },
+        { "name": "c", "type": "uint", "is_indexed": false }
+      ],
+      "outputs": [],
+      "events": ["goesBrrrrr"]
+    },
+    {
+      "name": "dogeDiv",
+      "description": "",
+      "Scope": "public",
+      "has_side_effects": true,
+      "dispatcher": "",
+      "inputs": [
+        { "name": "a", "type": "uint", "is_indexed": false },
+        { "name": "b", "type": "uint", "is_indexed": false },
+        { "name": "c", "type": "uint", "is_indexed": false }
+      ],
+      "outputs": [],
+      "events": []
+    }
+  ],
+  "events": [
+    {
+      "name": "goesBrrrrr",
+      "description": "Emits how much was earned",
+      "outputs": {
+        "name": "earnings",
+        "type": "int256",
+        "is_indexed": false
+      }
+    }
+  ]
+}

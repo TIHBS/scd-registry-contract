@@ -11,6 +11,6 @@
     "resolveJsonModule": true,
     "baseUrl": "."
   },
-  "include": ["src/**/*", "test/**/*", "tasks/**/*", "deploy/**/*", "scripts/**/*"],
+  "include": ["src/**/*", "test/**/*", "stress-test/**/*", "tasks/**/*", "deploy/**/*", "scripts/**/*"],
   "files": ["./hardhat.config.ts"]
 }

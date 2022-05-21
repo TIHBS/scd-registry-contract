@@ -17,6 +17,8 @@
     "deploy:container": "hardhat deploy --network ganache-cli",
     "test:coverage": "hardhat coverage",
     "test:gas": "cross-env GAS=true hardhat test",
+    "stress-test:store": "STORE=true hardhat test stress-test/**",
+    "stress-test:no-store": "hardhat test stress-test/**",
     "postinstall": "ts-node scripts/post-install.ts"
   },
   "repository": {
@@ -38,6 +40,8 @@
     "@types/app-root-dir": "^0.1.1",
     "@types/chai": "^4.3.0",
     "@types/deep-equal-in-any-order": "^1.0.1",
+    "@types/klaw-sync": "^6.0.1",
+    "@types/lodash": "^4.14.182",
     "@types/mocha": "^9.1.0",
     "@types/node": "^17.0.18",
     "@types/node-fetch": "^2.6.1",
@@ -56,6 +60,8 @@
     "hardhat-deploy": "^0.10.5",
     "hardhat-deploy-ethers": "^0.3.0-beta.13",
     "hardhat-gas-reporter": "^1.0.8",
+    "klaw-sync": "^6.0.0",
+    "lodash": "^4.17.21",
     "mocha": "^9.2.1",
     "node-fetch": "^2.6.7",
     "prettier": "^2.6.0",
