@@ -13,19 +13,19 @@ import { toContractType } from "../external/decentralised-scd-registry-common/sr
 import _ from "lodash";
 
 function scdToMetadata(scd: SCD, url: string): Metadata {
-  const functionNames = scd.functions.map(func => func.name);
-  const eventNames = scd.events ? scd.events.map(event => event.name) : [];
+  const functionNames = scd.functions ? scd.functions.map(func => func.name).filter(name => name) : [];
+  const eventNames = scd.events ? scd.events.map(event => event.name).filter(name => name) : [];
   const signature = "0x534af078a10af8335f6fbab8bfbd9bb13ed30fbb31f73f31c2070cfc5a4ad666";
   const authorAddress = "0x534af078a10af8335f6fbab8bfbd9bb13ed30fbb31f73f31c2070cfc5a4ad666";
 
   return {
-    name: scd.name,
+    name: scd.name ? scd.name : "",
     author: authorAddress,
-    version: scd.version,
+    version: scd.version ? scd.version : "",
     signature: signature,
-    internal_address: scd.internal_address,
+    internal_address: scd.internal_address ? scd.internal_address : "",
     url: new URL(url),
-    blockchain_type: scd.blockchain_type,
+    blockchain_type: scd.blockchain_type ? scd.blockchain_type : "ethereum",
     functions: functionNames,
     events: eventNames,
     is_valid: true,
@@ -37,24 +37,28 @@ const storeScds = process.env.STORE == "true";
 
 describe("Stress tests", () => {
   let registry: Registry;
-  before(async () => {
+  before(async function () {
+    this.timeout(0);
     [registry] = await deployRegistry((await ethers.getSigners())[0]);
 
     if (storeScds) {
-      const scdMetadata = _.chunk(
-        klawSync(scdDir, { nodir: true })
-          .map(item => item.path)
-          .map(scdPath => {
-            const scdData = JSON.parse(readFileSync(scdPath, "utf-8"));
-            return toContractType(scdToMetadata(scdData, join("http://localhost:49160/", relative(scdDir, scdPath))));
-          }),
-        100,
-      );
-      scdMetadata.forEach(async groupOfScds => await registry.storeMultiple(groupOfScds));
+      const scdMetadata = klawSync(scdDir, { nodir: true })
+        .map(item => item.path)
+        .filter(scdPath => scdPath.endsWith(".json"))
+        .map(scdPath => {
+          const scdData = JSON.parse(readFileSync(scdPath, "utf-8"));
+          return toContractType(scdToMetadata(scdData, join("http://localhost:49160/", relative(scdDir, scdPath))));
+        });
+
+      for (const scd of scdMetadata) {
+        await registry.store(scd);
+        console.log(`Stored ${scd.name} scds`);
+      }
     }
   });
 
-  it("Should retrieve scd metadata", async () => {
+  it("Should retrieve scd metadata", async function () {
+    this.timeout(0);
     const start = performance.now();
     const result = await registry.retrieveByName("quaCoin");
     const end = performance.now();

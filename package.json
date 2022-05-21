@@ -17,7 +17,7 @@
     "deploy:container": "hardhat deploy --network ganache-cli",
     "test:coverage": "hardhat coverage",
     "test:gas": "cross-env GAS=true hardhat test",
-    "stress-test:store": "STORE=true hardhat test stress-test/**",
+    "stress-test:store": "STORE=true hardhat test stress-test/** --network ganache-cli",
     "stress-test:no-store": "hardhat test stress-test/**",
     "postinstall": "ts-node scripts/post-install.ts"
   },
