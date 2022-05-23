@@ -38,7 +38,7 @@ const config: HardhatUserConfig = {
       gas: "auto",
       gasPrice: "auto",
       accounts: testWallets,
-      chainId: 1337,
+      chainId: 57771,
       mining: { auto: true },
     },
   },

@@ -117,3 +117,6 @@ coverage.json
 
 # External
 contracts/external/
+
+# Ganache
+ganache_data_stress_test/
