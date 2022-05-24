@@ -17,9 +17,9 @@
     "deploy:container": "hardhat deploy --network ganache-cli",
     "test:coverage": "hardhat coverage",
     "test:gas": "cross-env GAS=true hardhat test",
-    "stress-test:store": "NODE_OPTIONS=--max-old-space-size=16384 STORE=true npx hardhat run stress-test/StressTest.ts",
-    "stress-test:no-store": "NODE_OPTIONS=--max-old-space-size=16384 STORE=false npx hardhat run stress-test/StressTest.ts",
-    "postinstall": "ts-node scripts/post-install.ts"
+    "postinstall": "ts-node scripts/post-install.ts",
+    "query-scds-from-chain": "npx hardhat run scripts/query-scds-from-chain.ts",
+    "store-scds-in-bulk": "npx hardhat run scripts/store-scds-in-bulk.ts"
   },
   "repository": {
     "type": "git",

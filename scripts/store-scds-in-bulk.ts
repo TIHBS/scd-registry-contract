@@ -1,5 +1,4 @@
 import { ethers } from "hardhat";
-import { Registry } from "src/types/Registry";
 import * as ProjectRootDir from "app-root-dir";
 import { join, relative } from "path";
 import klawSync from "klaw-sync";
@@ -31,7 +30,7 @@ function scdToMetadata(scd: SCD, url: string): Metadata {
   };
 }
 
-const scdDir = process.env.SCD_DIR ? process.env.SCD_DIR : join(ProjectRootDir.get(), "stress-test-scds");
+const scdDir = process.env.SCD_DIR ? process.env.SCD_DIR : join(ProjectRootDir.get(), "scds");
 const hostIp = process.env.HOST_IP ? process.env.HOST_IP : "localhost";
 const registryAddress = process.env.REGISTRY_ADDRESS
   ? process.env.REGISTRY_ADDRESS
@@ -39,57 +38,42 @@ const registryAddress = process.env.REGISTRY_ADDRESS
 const walletAddress = process.env.WALLET_ADDRESS
   ? process.env.WALLET_ADDRESS
   : "0x250548444A4fBcFfb273B1034aa32cD6828544b0";
+const limit = process.env.LIMIT ? process.env.LIMIT : Number.MAX_SAFE_INTEGER;
 
-const storeScds = process.env.STORE == "true";
-
-async function prepare(): Promise<Registry> {
+async function main() {
   const provider = new ethers.providers.JsonRpcProvider("http://localhost:8545");
   const signer = provider.getSigner(walletAddress);
   const registry = Registry__factory.connect(registryAddress, signer);
 
-  if (storeScds) {
-    const scdMetadataGroups = _.chunk(
-      klawSync(scdDir, { nodir: true })
-        .map(item => item.path)
-        .filter(scdPath => scdPath.endsWith(".json"))
-        .map(scdPath => {
-          const scdData = JSON.parse(readFileSync(scdPath, "utf-8"));
-          return toContractType(scdToMetadata(scdData, join(`http://${hostIp}:49160/`, relative(scdDir, scdPath))));
-        }),
-      500,
-    );
-    console.log(scdMetadataGroups.length);
-    let i = 0;
-    let stored = 0;
-    try {
-      for (const scdMetadataGroup of scdMetadataGroups) {
-        const transaction = await registry.storeMultiple(scdMetadataGroup, { gasLimit: 999999999 });
-        const receit = await transaction.wait();
-        stored += scdMetadataGroup.length;
-        console.log(`${i}: Stored ${stored} scds`);
-        i++;
-      }
-    } catch (err) {
-      console.error(err);
-    } finally {
-      console.log(`Stored ${stored} scds`);
-    }
-  }
-  return registry;
-}
+  const scdMetadataGroups = _.chunk(
+    klawSync(scdDir, { nodir: true })
+      .map(item => item.path)
+      .filter(scdPath => scdPath.endsWith(".json"))
+      .map(scdPath => {
+        const scdData = JSON.parse(readFileSync(scdPath, "utf-8"));
+        return toContractType(scdToMetadata(scdData, join(`http://${hostIp}:49160/`, relative(scdDir, scdPath))));
+      }),
+    200,
+  );
 
-async function main() {
-  const registry = await prepare();
-  console.log("started");
-  const start = performance.now();
-  const result = await registry.query("Name='Contract'");
-  const end = performance.now();
-  result.forEach(metadata => console.log(`id: ${metadata.id} name: ${metadata.metadata.name}`));
-  console.log(`Retrieval took ${end - start} ms`);
-  if (result.length == 0) {
-    console.error("Nothing was retrieved!");
-  } else {
-    console.log(`Retrieved ${result.length} scd(s)`);
+  console.log(`Splitt scds into ${scdMetadataGroups.length} groups`);
+  let i = 0;
+  let stored = 0;
+  try {
+    for (const scdMetadataGroup of scdMetadataGroups) {
+      const transaction = await registry.storeMultiple(scdMetadataGroup, { gasLimit: 999999999 });
+      await transaction.wait();
+      stored += scdMetadataGroup.length;
+      console.log(`${i}: Stored ${stored} scds`);
+      i++;
+      if (stored >= limit) {
+        break;
+      }
+    }
+  } catch (err) {
+    console.error(err);
+  } finally {
+    console.log(`Stored ${stored} scds`);
   }
 }
 
