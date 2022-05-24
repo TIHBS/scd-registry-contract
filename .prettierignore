@@ -6,3 +6,5 @@ deployments/
 coverage.json
 contracts/external/strings.sol
 contracts/generated/QueryRegex.sol
+external/
+dist/
