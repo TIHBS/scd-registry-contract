@@ -19,7 +19,8 @@
     "test:gas": "cross-env GAS=true hardhat test",
     "postinstall": "ts-node scripts/post-install.ts",
     "query-scds-from-chain": "npx hardhat run scripts/query-scds-from-chain.ts",
-    "store-scds-in-bulk": "npx hardhat run scripts/store-scds-in-bulk.ts"
+    "store-scds-in-bulk": "npx hardhat run scripts/store-scds-in-bulk.ts",
+    "performance-test-amount-of-scds": "npx hardhat run scripts/performance-test-amount-of-scds.ts"
   },
   "repository": {
     "type": "git",
