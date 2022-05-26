@@ -3,7 +3,7 @@ RUN /bin/sh -c "apk add --no-cache bash"
 ENV NODE_OPTIONS=--max-old-space-size=26620
 ENTRYPOINT node /app/ganache-core.docker.cli.js \
     --db /ganache_data/chain-state.db \
-    --networkId 57771 \
+    --chainId 57771 \
     --verbose \
     --host 0.0.0.0 \
     --g 0 \
