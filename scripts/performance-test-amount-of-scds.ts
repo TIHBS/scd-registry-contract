@@ -8,6 +8,7 @@ import { readFileSync } from "fs";
 import { toContractType } from "../external/decentralised-scd-registry-common/src/Conversion";
 import _ from "lodash";
 import { Registry__factory } from "src/types";
+import { writeFileSync } from "fs";
 import "dotenv/config";
 
 function scdToMetadata(scd: SCD, url: string): Metadata {
@@ -41,6 +42,7 @@ const walletAddress = process.env.WALLET_ADDRESS
 const every = process.env.EVERY ? process.env.EVERY : Number.MAX_SAFE_INTEGER;
 const limit = process.env.LIMIT ? process.env.LIMIT : Number.MAX_SAFE_INTEGER;
 const queries = [
+  "Name='kjakhgrlanjklfh3984jklnklasdfhigjöaklgj'", // The case that noting was retrieved
   "Name='InitializeableImplementation1'",
   "Name='InitializeableImplementation2'",
   "Name='InitializeableImplementation3'",
@@ -66,13 +68,15 @@ async function main() {
         const scdData = JSON.parse(readFileSync(scdPath, "utf-8"));
         return toContractType(scdToMetadata(scdData, join(`http://${hostIp}:49160/`, relative(scdDir, scdPath))));
       }),
-    200,
+    25,
   );
 
   console.log(`Splitt scds into ${scdMetadataGroups.length} groups`);
   let i = 0;
   let stored = 0;
   let storedCurr = 0;
+  const lines = [];
+  lines.push("num-stored-scds,num-results,time-in-ms");
 
   try {
     for (const scdMetadataGroup of scdMetadataGroups) {
@@ -88,8 +92,12 @@ async function main() {
           const start = performance.now();
           const result = await registry.query(query);
           const end = performance.now();
+          const timeDiff = end - start;
           result.forEach(metadata => console.log(`id: ${metadata.id} name: ${metadata.metadata.name}`));
-          console.log(`Retrieval took ${end - start} ms`);
+          console.log(`Retrieval took ${timeDiff} ms`);
+
+          lines.push(`${stored},${result.length},${timeDiff}`);
+
           if (result.length == 0) {
             console.error("Nothing was retrieved!");
           } else {
@@ -105,6 +113,9 @@ async function main() {
     console.error(err);
   } finally {
     console.log(`Stored ${stored} scds`);
+    const toWrite = lines.join("\n");
+
+    writeFileSync("./performance-test-results.csv", toWrite);
   }
 }
 
