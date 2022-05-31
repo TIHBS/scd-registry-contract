@@ -3,64 +3,75 @@ import { outputToStruct } from "src/util/contract";
 import { Registry } from "src/types/Registry";
 import { deployRegistry } from "../../SetupRegistry";
 import expect from "test/expect";
+import { Registry__factory } from "src/types";
 
 export function storeMultipleRetrieveOne() {
   describe("Store multiple and retrieve one", () => {
     let registry: Registry;
-    const scds: Registry.SCDMetadataStruct[] = [
-      {
-        name: "Contract Name 1",
-        author: "TestAuthor1",
-        version: "v2.11",
-        signature: "62cf2bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
-        internalAddress: "479f26b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
-        url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-        blockChainType: 0,
-        functions: ["function1", "function2", "function3"],
-        events: ["event1", "event2", "event3", "event4"],
-        isValid: true,
-      },
-      {
-        name: "Contract Name 2",
-        author: "TestAuthor2",
-        version: "v2.22",
-        signature: "22222bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
-        internalAddress: "444426b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
-        url: "ftp://www.youtube.com/watch?v=dQw4w9WgXcQ",
-        blockChainType: 1,
-        functions: ["function12", "function22", "function32"],
-        events: ["event12", "event22", "event32", "event42"],
-        isValid: true,
-      },
-      {
-        name: "Contract Name 3",
-        author: "TestAuthor3",
-        version: "v2.33",
-        signature: "33332bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
-        internalAddress: "333326b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
-        url: "https://odysee.com/@NCRfreemusic:c/RickAstley:e",
-        blockChainType: 2,
-        functions: ["function13", "function23", "function33"],
-        events: ["event13", "event23", "event33", "event43"],
-        isValid: true,
-      },
-      {
-        name: "Contract Name 333",
-        author: "TestAuthor333",
-        version: "v2.333333",
-        signature: "33332bcc38e123d525sdfsd12bd72550cc61b0020ba726143d63fb58ec51371c5e746",
-        internalAddress: "333326b5f6edfsf0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
-        url: "https://odysee.com/@NCRfreemusic:c/RickAstley:eeeeee",
-        blockChainType: 3,
-        functions: ["function15e453", "function255ee3", "function366ep3ee"],
-        events: ["event990e03", "event34e63", "event883e3ee", "event46e73"],
-        isValid: true,
-      },
-    ];
+    let scds: Registry.SCDMetadataStruct[];
 
     before(async () => {
+      const signers = await ethers.getSigners();
+      const address1 = await signers[0].getAddress();
+      const address2 = await signers[1].getAddress();
+      const address3 = await signers[2].getAddress();
+
+      scds = [
+        {
+          name: "Contract Name 1",
+          author: address1,
+          version: "v2.11",
+          signature: "62cf2bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
+          internalAddress: "479f26b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
+          url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          blockChainType: 0,
+          functions: ["function1", "function2", "function3"],
+          events: ["event1", "event2", "event3", "event4"],
+          isValid: true,
+        },
+        {
+          name: "Contract Name 2",
+          author: address2,
+          version: "v2.22",
+          signature: "22222bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
+          internalAddress: "444426b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
+          url: "ftp://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          blockChainType: 1,
+          functions: ["function12", "function22", "function32"],
+          events: ["event12", "event22", "event32", "event42"],
+          isValid: true,
+        },
+        {
+          name: "Contract Name 3",
+          author: address3,
+          version: "v2.33",
+          signature: "33332bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
+          internalAddress: "333326b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
+          url: "https://odysee.com/@NCRfreemusic:c/RickAstley:e",
+          blockChainType: 2,
+          functions: ["function13", "function23", "function33"],
+          events: ["event13", "event23", "event33", "event43"],
+          isValid: true,
+        },
+        {
+          name: "Contract Name 333",
+          author: address1,
+          version: "v2.333333",
+          signature: "33332bcc38e123d525sdfsd12bd72550cc61b0020ba726143d63fb58ec51371c5e746",
+          internalAddress: "333326b5f6edfsf0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
+          url: "https://odysee.com/@NCRfreemusic:c/RickAstley:eeeeee",
+          blockChainType: 3,
+          functions: ["function15e453", "function255ee3", "function366ep3ee"],
+          events: ["event990e03", "event34e63", "event883e3ee", "event46e73"],
+          isValid: true,
+        },
+      ];
+
       [registry] = await deployRegistry((await ethers.getSigners())[0]);
-      await registry.storeMultiple(scds);
+      await registry.store(scds[0]);
+      await Registry__factory.connect(registry.address, signers[1]).store(scds[1]);
+      await Registry__factory.connect(registry.address, signers[2]).store(scds[2]);
+      await registry.store(scds[3]);
     });
 
     it("Should store and retrieve the SCDMetadata by id", async () => {

@@ -3,12 +3,17 @@ import { outputToStruct } from "src/util/contract";
 import { Registry } from "src/types/Registry";
 import { deployRegistry } from "../../SetupRegistry";
 import expect from "test/expect";
+import { Registry__factory } from "src/types/factories/Registry__factory";
 
 export function storeMultipleRetrieveMultiple() {
   describe("Store multiple and retrieve multiple", () => {
     let registry: Registry;
+    let address: string;
+
     beforeEach(async () => {
-      [registry] = await deployRegistry((await ethers.getSigners())[0]);
+      const signer = (await ethers.getSigners())[0];
+      address = await signer.getAddress();
+      [registry] = await deployRegistry(signer);
     });
 
     it("Should store and retrieve the SCDMetadata by name", async () => {
@@ -16,7 +21,7 @@ export function storeMultipleRetrieveMultiple() {
       const scds: Registry.SCDMetadataStruct[] = [
         {
           name: name,
-          author: "TestAuthor1",
+          author: address,
           version: "v2.11",
           signature: "62cf2bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
           internalAddress: "479f26b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -28,7 +33,7 @@ export function storeMultipleRetrieveMultiple() {
         },
         {
           name: "Contract Name 2",
-          author: "TestAuthor2",
+          author: address,
           version: "v2.22",
           signature: "22222bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
           internalAddress: "444426b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -40,7 +45,7 @@ export function storeMultipleRetrieveMultiple() {
         },
         {
           name: name,
-          author: "TestAuthor3",
+          author: address,
           version: "v2.33",
           signature: "33332bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
           internalAddress: "333326b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -61,7 +66,7 @@ export function storeMultipleRetrieveMultiple() {
       const scds: Registry.SCDMetadataStruct[] = [
         {
           name: "Contract Name 1",
-          author: "TestAuthor1",
+          author: address,
           version: "v2.11",
           signature: "62cf2bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
           internalAddress: "479f26b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -73,7 +78,7 @@ export function storeMultipleRetrieveMultiple() {
         },
         {
           name: "Contract Name 2",
-          author: "TestAuthor2",
+          author: address,
           version: "v2.22",
           signature: "22222bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
           internalAddress: "444426b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -85,7 +90,7 @@ export function storeMultipleRetrieveMultiple() {
         },
         {
           name: "Contract Name 3",
-          author: "TestAuthor3",
+          author: address,
           version: "v2.33",
           signature: "33332bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
           internalAddress: "333326b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -130,11 +135,15 @@ export function storeMultipleRetrieveMultiple() {
     });
 
     it("Should store and retrieve the SCDMetadata by author", async () => {
-      const author = "TestAuthor1";
+      const signers = await ethers.getSigners();
+
+      const address1 = await signers[0].getAddress();
+      const address2 = await signers[1].getAddress();
+
       const scds: Registry.SCDMetadataStruct[] = [
         {
           name: "Contract Name 1",
-          author: author,
+          author: address1,
           version: "v2.11",
           signature: "62cf2bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
           internalAddress: "479f26b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -146,7 +155,7 @@ export function storeMultipleRetrieveMultiple() {
         },
         {
           name: "Contract Name 2",
-          author: author,
+          author: address1,
           version: "v2.22",
           signature: "22222bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
           internalAddress: "444426b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -158,7 +167,7 @@ export function storeMultipleRetrieveMultiple() {
         },
         {
           name: "Contract Name 3",
-          author: "TestAuthor3",
+          author: address2,
           version: "v2.33",
           signature: "33332bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
           internalAddress: "333326b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -169,9 +178,12 @@ export function storeMultipleRetrieveMultiple() {
           isValid: true,
         },
       ];
-      await registry.storeMultiple(scds);
 
-      const result = (await registry.retrieveByAuthor(author)).map(output => outputToStruct(output.metadata));
+      await Registry__factory.connect(registry.address, signers[0]).store(scds[0]);
+      await Registry__factory.connect(registry.address, signers[0]).store(scds[1]);
+      await Registry__factory.connect(registry.address, signers[1]).store(scds[2]);
+
+      const result = (await registry.retrieveByAuthor(address)).map(output => outputToStruct(output.metadata));
       expect(result).to.deep.equal([scds[0], scds[1]]);
     });
 
@@ -180,7 +192,7 @@ export function storeMultipleRetrieveMultiple() {
       const scds: Registry.SCDMetadataStruct[] = [
         {
           name: "Contract Name 1",
-          author: "TestAuthor1",
+          author: address,
           version: "v2.11",
           signature: "62cf2bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
           internalAddress: "479f26b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -192,7 +204,7 @@ export function storeMultipleRetrieveMultiple() {
         },
         {
           name: "Contract Name 2",
-          author: "TestAuthor2",
+          author: address,
           version: version,
           signature: "22222bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
           internalAddress: "444426b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -204,7 +216,7 @@ export function storeMultipleRetrieveMultiple() {
         },
         {
           name: "Contract Name 3",
-          author: "TestAuthor3",
+          author: address,
           version: version,
           signature: "33332bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
           internalAddress: "333326b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -226,7 +238,7 @@ export function storeMultipleRetrieveMultiple() {
       const scds: Registry.SCDMetadataStruct[] = [
         {
           name: "Contract Name 1",
-          author: "TestAuthor1",
+          author: address,
           version: "v2.11",
           signature: signature,
           internalAddress: "479f26b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -238,7 +250,7 @@ export function storeMultipleRetrieveMultiple() {
         },
         {
           name: "Contract Name 2",
-          author: "TestAuthor2",
+          author: address,
           version: "v2.22",
           signature: signature,
           internalAddress: "444426b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -250,7 +262,7 @@ export function storeMultipleRetrieveMultiple() {
         },
         {
           name: "Contract Name 3",
-          author: "TestAuthor3",
+          author: address,
           version: "v2.33",
           signature: "33332bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
           internalAddress: "333326b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -272,7 +284,7 @@ export function storeMultipleRetrieveMultiple() {
       const scds: Registry.SCDMetadataStruct[] = [
         {
           name: "Contract Name 1",
-          author: "TestAuthor1",
+          author: address,
           version: "v2.11",
           signature: "62cf2bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
           internalAddress: internalAddress,
@@ -284,7 +296,7 @@ export function storeMultipleRetrieveMultiple() {
         },
         {
           name: "Contract Name 2",
-          author: "TestAuthor2",
+          author: address,
           version: "v2.22",
           signature: "22222bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
           internalAddress: "444426b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -296,7 +308,7 @@ export function storeMultipleRetrieveMultiple() {
         },
         {
           name: "Contract Name 3",
-          author: "TestAuthor3",
+          author: address,
           version: "v2.33",
           signature: "33332bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
           internalAddress: internalAddress,
@@ -320,7 +332,7 @@ export function storeMultipleRetrieveMultiple() {
       const scds: Registry.SCDMetadataStruct[] = [
         {
           name: "Contract Name 1",
-          author: "TestAuthor1",
+          author: address,
           version: "v2.11",
           signature: "62cf2bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
           internalAddress: "479f26b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -332,7 +344,7 @@ export function storeMultipleRetrieveMultiple() {
         },
         {
           name: "Contract Name 2",
-          author: "TestAuthor2",
+          author: address,
           version: "v2.22",
           signature: "22222bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
           internalAddress: "444426b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -344,7 +356,7 @@ export function storeMultipleRetrieveMultiple() {
         },
         {
           name: "Contract Name 3",
-          author: "TestAuthor3",
+          author: address,
           version: "v2.33",
           signature: "33332bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
           internalAddress: "333326b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -366,7 +378,7 @@ export function storeMultipleRetrieveMultiple() {
       const scds: Registry.SCDMetadataStruct[] = [
         {
           name: "Contract Name 1",
-          author: "TestAuthor1",
+          author: address,
           version: "v2.11",
           signature: "62cf2bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
           internalAddress: "479f26b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -378,7 +390,7 @@ export function storeMultipleRetrieveMultiple() {
         },
         {
           name: "Contract Name 2",
-          author: "TestAuthor2",
+          author: address,
           version: "v2.22",
           signature: "22222bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
           internalAddress: "444426b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -390,7 +402,7 @@ export function storeMultipleRetrieveMultiple() {
         },
         {
           name: "Contract Name 3",
-          author: "TestAuthor3",
+          author: address,
           version: "v2.33",
           signature: "33332bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
           internalAddress: "333326b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -415,7 +427,7 @@ export function storeMultipleRetrieveMultiple() {
       const scds: Registry.SCDMetadataStruct[] = [
         {
           name: "Contract Name 1",
-          author: "TestAuthor1",
+          author: address,
           version: "v2.11",
           signature: "62cf2bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
           internalAddress: "479f26b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -427,7 +439,7 @@ export function storeMultipleRetrieveMultiple() {
         },
         {
           name: "Contract Name 2",
-          author: "TestAuthor2",
+          author: address,
           version: "v2.22",
           signature: "22222bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
           internalAddress: "444426b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -439,7 +451,7 @@ export function storeMultipleRetrieveMultiple() {
         },
         {
           name: "Contract Name 3",
-          author: "TestAuthor3",
+          author: address,
           version: "v2.33",
           signature: "33332bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
           internalAddress: "333326b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -470,7 +482,7 @@ export function storeMultipleRetrieveMultiple() {
       const scds: Registry.SCDMetadataStruct[] = [
         {
           name: "Contract Name 1",
-          author: "TestAuthor1",
+          author: address,
           version: "v2.11",
           signature: "62cf2bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
           internalAddress: "479f26b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -482,7 +494,7 @@ export function storeMultipleRetrieveMultiple() {
         },
         {
           name: "Contract Name 2",
-          author: "TestAuthor2",
+          author: address,
           version: "v2.22",
           signature: "22222bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
           internalAddress: "444426b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -494,7 +506,7 @@ export function storeMultipleRetrieveMultiple() {
         },
         {
           name: "Contract Name 3",
-          author: "TestAuthor3",
+          author: address,
           version: "v2.33",
           signature: "33332bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
           internalAddress: "333326b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",

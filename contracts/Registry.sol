@@ -24,9 +24,21 @@ contract Registry {
     NEO
   }
 
+  struct SCDMetadataIn {
+    string name;
+    string internalAddress;
+    string url;
+    string signature;
+    string version;
+    string[] functions;
+    string[] events;
+    bool isValid;
+    BlockchainType blockChainType;
+  }
+
   struct SCDMetadata {
     string name;
-    string author;
+    address author;
     string internalAddress;
     string url;
     string signature;
@@ -55,7 +67,7 @@ contract Registry {
   mapping(uint256 => SCDMetadata) private metadataMap;
 
   mapping(string => EnumerableSet.UintSet) private nameMap;
-  mapping(string => EnumerableSet.UintSet) private authorMap;
+  mapping(address => EnumerableSet.UintSet) private authorMap;
   mapping(string => EnumerableSet.UintSet) private internalAddressMap;
   mapping(string => EnumerableSet.UintSet) private functionsMap;
   mapping(string => EnumerableSet.UintSet) private eventsMap;
@@ -73,25 +85,37 @@ contract Registry {
     regexAddress = _regexAddress;
   }
 
-  function storeMultiple(SCDMetadata[] memory _metadata) public {
+  function storeMultiple(SCDMetadataIn[] memory _metadata) public {
     for (uint256 i = 0; i < _metadata.length; i++) {
       store(_metadata[i]);
     }
   }
 
-  function store(SCDMetadata memory _metadata) public {
-    metadataMap[idCounter.current()] = _metadata;
+  function store(SCDMetadataIn memory _metadata) public {
+    SCDMetadata memory toStore = SCDMetadata({
+      name: _metadata.name,
+      author: tx.origin,
+      internalAddress: _metadata.internalAddress,
+      url: _metadata.url,
+      signature: _metadata.signature,
+      version: _metadata.version,
+      blockChainType: _metadata.blockChainType,
+      functions: _metadata.functions,
+      events: _metadata.events,
+      isValid: _metadata.isValid
+    });
+    metadataMap[idCounter.current()] = toStore;
 
-    nameMap[_metadata.name].add(idCounter.current());
-    authorMap[_metadata.author].add(idCounter.current());
-    internalAddressMap[_metadata.internalAddress].add(idCounter.current());
-    urlMap[_metadata.url].add(idCounter.current());
-    signatureMap[_metadata.signature].add(idCounter.current());
-    versionMap[_metadata.version].add(idCounter.current());
-    blockChainTypeMap[_metadata.blockChainType].add(idCounter.current());
+    nameMap[toStore.name].add(idCounter.current());
+    authorMap[toStore.author].add(idCounter.current());
+    internalAddressMap[toStore.internalAddress].add(idCounter.current());
+    urlMap[toStore.url].add(idCounter.current());
+    signatureMap[toStore.signature].add(idCounter.current());
+    versionMap[toStore.version].add(idCounter.current());
+    blockChainTypeMap[toStore.blockChainType].add(idCounter.current());
 
-    addMultipleKeysForOneValue(functionsMap, _metadata.functions, idCounter.current());
-    addMultipleKeysForOneValue(eventsMap, _metadata.events, idCounter.current());
+    addMultipleKeysForOneValue(functionsMap, toStore.functions, idCounter.current());
+    addMultipleKeysForOneValue(eventsMap, toStore.events, idCounter.current());
     emit ContractRegistered(idCounter.current());
     idCounter.increment();
   }
@@ -116,7 +140,8 @@ contract Registry {
     if (asSlice.equals("Name".toSlice())) {
       return nameMap[pair.value];
     } else if (asSlice.equals("Author".toSlice())) {
-      return authorMap[pair.value];
+      address addr = UtilLibrary.toAddress(pair.value);
+      return authorMap[addr];
     } else if (asSlice.equals("InternalAddress".toSlice())) {
       return internalAddressMap[pair.value];
     } else if (asSlice.equals("Url".toSlice())) {
@@ -190,8 +215,9 @@ contract Registry {
     return retrieveFrom(nameMap, _name);
   }
 
-  function retrieveByAuthor(string memory _author) public view returns (SCDMetadataWithID[] memory) {
-    return retrieveFrom(authorMap, _author);
+  function retrieveByAuthor(address _author) public view returns (SCDMetadataWithID[] memory) {
+    EnumerableSet.UintSet storage indices = authorMap[_author];
+    return indicesToMetadata(indices.values());
   }
 
   function retrieveByInternalAddress(string memory _internalAddress) public view returns (SCDMetadataWithID[] memory) {

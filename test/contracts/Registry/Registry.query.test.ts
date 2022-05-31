@@ -17,23 +17,28 @@ export function query() {
 
     describe("One parameter", () => {
       let registry: Registry;
-      const scd = [
-        {
-          name: "Contract-Name-1",
-          author: "TestAuthor1",
-          version: "v2.3",
-          signature: "62cf2bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
-          internalAddress: "479f26b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
-          url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-          blockChainType: 1,
-          functions: ["function1", "function2", "function3"],
-          events: ["event1", "event2", "event3", "event4"],
-          isValid: true,
-        },
-      ];
+      let address: string;
+      let scd: Registry.SCDMetadataStruct[];
 
       before(async () => {
-        [registry] = await deployRegistry((await ethers.getSigners())[0]);
+        const signer = (await ethers.getSigners())[0];
+        address = await signer.getAddress();
+        scd = [
+          {
+            name: "Contract-Name-1",
+            author: address,
+            version: "v2.3",
+            signature: "62cf2bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
+            internalAddress: "479f26b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
+            url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+            blockChainType: 1,
+            functions: ["function1", "function2", "function3"],
+            events: ["event1", "event2", "event3", "event4"],
+            isValid: true,
+          },
+        ];
+
+        [registry] = await deployRegistry(signer);
         await registry.store(scd[0]);
       });
 
@@ -100,15 +105,20 @@ export function query() {
 
     describe("Multiple parameter", () => {
       let registry: Registry;
+      let address: string;
+
       beforeEach(async () => {
-        [registry] = await deployRegistry((await ethers.getSigners())[0]);
+        const signer = (await ethers.getSigners())[0];
+        address = await signer.getAddress();
+
+        [registry] = await deployRegistry(signer);
       });
 
       it("Should query the smart contract and retrieve two SCDMetadata objects by Event and Author", async () => {
         const scds: Registry.SCDMetadataStruct[] = [
           {
             name: "Contract Name 1",
-            author: "TestAuthor1",
+            author: address,
             version: "v2.11",
             signature: "62cf2bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
             internalAddress: "479f26b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -120,7 +130,7 @@ export function query() {
           },
           {
             name: "Contract Name 2",
-            author: "TestAuthor1",
+            author: address,
             version: "v2.22",
             signature: "22222bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
             internalAddress: "444426b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -132,7 +142,7 @@ export function query() {
           },
           {
             name: "Contract Name 3",
-            author: "TestAuthor3",
+            author: address,
             version: "v2.33",
             signature: "33332bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
             internalAddress: "333326b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -156,7 +166,7 @@ export function query() {
         const scds: Registry.SCDMetadataStruct[] = [
           {
             name: "Contract Name 1",
-            author: "TestAuthor1",
+            author: address,
             version: "v2.11",
             signature: "62cf2bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
             internalAddress: "479f26b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -168,7 +178,7 @@ export function query() {
           },
           {
             name: "Contract Name 1",
-            author: "TestAuthor1",
+            author: address,
             version: "v2.22",
             signature: "22222bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
             internalAddress: "444426b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -180,7 +190,7 @@ export function query() {
           },
           {
             name: "Contract Name 3",
-            author: "TestAuthor3",
+            author: address,
             version: "v2.33",
             signature: "33332bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
             internalAddress: "333326b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -204,7 +214,7 @@ export function query() {
         const scds: Registry.SCDMetadataStruct[] = [
           {
             name: "Contract Name 1",
-            author: "TestAuthor1",
+            author: address,
             version: "v2.11",
             signature: "62cf2bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
             internalAddress: "479f26b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -216,7 +226,7 @@ export function query() {
           },
           {
             name: "Contract Name 1",
-            author: "TestAuthor1",
+            author: address,
             version: "v2.22",
             signature: "22222bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
             internalAddress: "444426b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -228,7 +238,7 @@ export function query() {
           },
           {
             name: "Contract Name 3",
-            author: "TestAuthor3",
+            author: address,
             version: "v2.33",
             signature: "33332bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
             internalAddress: "333326b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -252,7 +262,7 @@ export function query() {
         const scds: Registry.SCDMetadataStruct[] = [
           {
             name: "Contract Name 1",
-            author: "TestAuthor1",
+            author: address,
             version: "v2.11",
             signature: "62cf2bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
             internalAddress: "479f26b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -264,7 +274,7 @@ export function query() {
           },
           {
             name: "Contract Name 1",
-            author: "TestAuthor1",
+            author: address,
             version: "v2.22",
             signature: "22222bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
             internalAddress: "333326b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
@@ -276,7 +286,7 @@ export function query() {
           },
           {
             name: "Contract Name 3",
-            author: "TestAuthor3",
+            author: address,
             version: "v2.33",
             signature: "33332bcc38e123d52512bd72550cc61b0020ba726143d63fb58ec51371c5e746",
             internalAddress: "333326b5f6e0db00d1cb9d6a4a0f8b28c30a7fe3f99fdfd68ed29ea3a12e6548",
