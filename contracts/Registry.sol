@@ -94,7 +94,7 @@ contract Registry {
   function store(SCDMetadataIn memory _metadata) public {
     SCDMetadata memory toStore = SCDMetadata({
       name: _metadata.name,
-      author: tx.origin,
+      author: msg.sender,
       internalAddress: _metadata.internalAddress,
       url: _metadata.url,
       signature: _metadata.signature,

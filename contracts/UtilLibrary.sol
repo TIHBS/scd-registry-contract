@@ -49,6 +49,7 @@ library UtilLibrary {
     return sub;
   }
 
+  // https://stackoverflow.com/questions/69551020/trying-to-convert-address-string-to-type-address-in-solidity
   function fromHexChar(uint8 c) internal pure returns (uint8) {
     if (bytes1(c) >= bytes1("0") && bytes1(c) <= bytes1("9")) {
       return c - uint8(bytes1("0"));
@@ -64,7 +65,7 @@ library UtilLibrary {
 
   function hexStringToAddress(string memory s) internal pure returns (bytes memory) {
     bytes memory ss = bytes(s);
-    require(ss.length % 2 == 0); // length must be even
+    require(ss.length % 2 == 0, "length of address must be even");
     bytes memory r = new bytes(ss.length / 2);
     for (uint256 i = 0; i < ss.length / 2; ++i) {
       r[i] = bytes1(fromHexChar(uint8(ss[2 * i])) * 16 + fromHexChar(uint8(ss[2 * i + 1])));

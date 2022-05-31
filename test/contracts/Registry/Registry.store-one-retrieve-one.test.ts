@@ -3,7 +3,6 @@ import { outputToStruct } from "src/util/contract";
 import { Registry } from "src/types/Registry";
 import { deployRegistry } from "../../SetupRegistry";
 import expect from "test/expect";
-import testWallets from "src/util/wallets";
 
 export function storeOneRetrieveOne() {
   describe("Store one and retrieve one", () => {
