@@ -78,8 +78,14 @@ export function query() {
         );
       });
 
-      it("Should query the smart contract and retrieve one SCDMetadata object by BlockchainType", async () => {
+      it("Should query the smart contract and retrieve one SCDMetadata object by the lockchainType as a number", async () => {
         await testQuery(`BlockchainType='${scd[0].blockChainType}'`, scd, async (query: string) =>
+          (await registry.query(query)).map(output => outputToStruct(output.metadata)),
+        );
+      });
+
+      it("Should query the smart contract and retrieve one SCDMetadata object by the BlockchainType as the actual name", async () => {
+        await testQuery(`BlockchainType='ETHEREUM'`, scd, async (query: string) =>
           (await registry.query(query)).map(output => outputToStruct(output.metadata)),
         );
       });

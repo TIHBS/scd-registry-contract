@@ -156,16 +156,16 @@ contract Registry {
       return eventsMap[pair.value];
     } else if (asSlice.equals("BlockchainType".toSlice())) {
       strings.slice memory valueAsSlice = pair.value.toSlice();
-      if (valueAsSlice.equals("0".toSlice())) {
+      if (valueAsSlice.equals("BITCOIN".toSlice()) || valueAsSlice.equals("0".toSlice())) {
         return blockChainTypeMap[BlockchainType.BITCOIN];
       }
-      if (valueAsSlice.equals("1".toSlice())) {
+      if (valueAsSlice.equals("ETHEREUM".toSlice()) || valueAsSlice.equals("1".toSlice())) {
         return blockChainTypeMap[BlockchainType.ETHEREUM];
       }
-      if (valueAsSlice.equals("2".toSlice())) {
+      if (valueAsSlice.equals("FABRIC".toSlice()) || valueAsSlice.equals("2".toSlice())) {
         return blockChainTypeMap[BlockchainType.FABRIC];
       }
-      if (valueAsSlice.equals("3".toSlice())) {
+      if (valueAsSlice.equals("NEO".toSlice()) || valueAsSlice.equals("3".toSlice())) {
         return blockChainTypeMap[BlockchainType.NEO];
       }
     }
