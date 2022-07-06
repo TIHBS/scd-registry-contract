@@ -32,7 +32,6 @@ contract Registry {
     string version;
     string[] functions;
     string[] events;
-    bool isValid;
     BlockchainType blockChainType;
   }
 
@@ -102,7 +101,7 @@ contract Registry {
       blockChainType: _metadata.blockChainType,
       functions: _metadata.functions,
       events: _metadata.events,
-      isValid: _metadata.isValid
+      isValid: true
     });
     metadataMap[idCounter.current()] = toStore;
 
