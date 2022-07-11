@@ -12,9 +12,10 @@ library FindLibrary {
     returns (
       uint256 begin,
       uint256 end,
-      bool accepts     
+      bool accepts
     )
   {
+    // Test
     QueryRegex.State memory cur = QueryRegex.State(false, QueryRegex.s1);
     uint256 _begin = 0;
     uint256 _end = begin;
