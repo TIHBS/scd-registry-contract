@@ -15,7 +15,6 @@ library FindLibrary {
       bool accepts
     )
   {
-    // Test
     QueryRegex.State memory cur = QueryRegex.State(false, QueryRegex.s1);
     uint256 _begin = 0;
     uint256 _end = begin;
