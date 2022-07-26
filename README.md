@@ -53,3 +53,21 @@ To test the project run:
 ```bash
 npm test
 ```
+
+## CI
+
+For the CI to work the necessary GitHub Actions secrets need to be set:
+
+```bash
+CI
+    A GitHub personal access token that allows to push to other repositories
+
+EMAIL
+    Your email address to push from
+
+NAME
+    Your username to push from
+
+COINMARKETCAP_API_KEY
+    CoinMarketCap api key to fetch current currency information
+```
